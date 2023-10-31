@@ -8,7 +8,7 @@ async function createDatabaseAndConnect(): Promise<Sequelize | null> {
     dialect: 'mysql',
     host: '127.0.0.1',
     username: 'root',
-    password: '123456'
+    password: process.env.MYSQL_PASSWORD
   });
 
   try {
@@ -37,7 +37,7 @@ async function createDatabaseAndConnect(): Promise<Sequelize | null> {
     dialect: 'mysql',
     host: '127.0.0.1',
     username: 'root',
-    password: '123456',
+    password: process.env.MYSQL_PASSWORD,
     database: databaseName
   });
 
