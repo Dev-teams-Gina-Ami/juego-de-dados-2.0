@@ -8,7 +8,7 @@ const server = http.createServer(app);
 dotenv.config();
 
 databaseConfiguration().then(() => {
-    server.listen(process.env.PORT, () => {
-        console.log('Servidor funcionando en http://localhost:3000');
-    });
+  server.listen(process.env.PORT, () => {
+    console.log('Servidor funcionando en http://localhost:3000');
+  });
 });

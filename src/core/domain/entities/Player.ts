@@ -1,42 +1,49 @@
 class Player {
+  static id_: number = 0;
+  private readonly id: string;
   private readonly name: string;
   private totalPlays: number;
   private totalWins: number;
-  private readonly creationDate: Date;
+  private readonly creationDate: Date | undefined;
 
-  constructor(name: string, totalPlays: number = 0, totalWins: number = 0) {
+  constructor(
+    name: string,
+    totalPlays: number = 0,
+    totalWins: number = 0,
+    creationDate?: Date | undefined
+  ) {
+    this.id = String(Player.id_++);
     this.name = name;
     this.totalPlays = totalPlays;
     this.totalWins = totalWins;
-    this.creationDate = new Date();
+    this.creationDate = creationDate;
+  }
+  getId(): string | undefined {
+    return this.id;
   }
 
-  toDTO(): {
-    name: string;
-    totalPlays: number;
-    totalWins: number;
-    creationDate: Date;
-  } {
-    return {
-      name: this.name,
-      totalPlays: this.totalPlays,
-      totalWins: this.totalWins,
-      creationDate: this.creationDate
-    };
-  }
-  //use-cases
-
-  PlaysCounter(): number {
-    return (this.totalPlays += 1);
+  getName(): string | undefined {
+    return this.name;
   }
 
-  WinsCounter(): number {
-    return (this.totalWins += 1);
+  getTotalPlays(): number | undefined {
+    return this.totalPlays;
   }
 
-  calculateWinRatio(): number {
-    const result = (this.totalWins / this.totalPlays) * 100;
-    return result;
+  getTotalWins(): number | undefined {
+    return this.totalWins;
+  }
+
+  getCreationDate(): Date | undefined {
+    return this.creationDate;
+  }
+
+  setTotalPlays(newTotalPlays: number): void {
+    this.totalPlays = newTotalPlays;
+  }
+
+  setTotalWins(newTotalWins: number): void {
+    this.totalWins = newTotalWins;
   }
 }
 
