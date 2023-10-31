@@ -1,1 +1,1 @@
-import { GameRepository } from "../../core/repositories/GameRepositories";
+import { GameRepository } from '../../core/repositories/GameRepositories';
