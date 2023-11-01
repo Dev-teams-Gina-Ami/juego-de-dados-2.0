@@ -1,4 +1,4 @@
-import Play from '../../../../core/domain/use-cases/Play'; // Replace 'yourFunctionsFile' with the actual file path
+import Play from '../../../../core/domain/use-cases/Play'; 
 
 describe('Tirada de dados', () => {
   it('Tiene que generar un numero random dentro del rango especificado', () => {

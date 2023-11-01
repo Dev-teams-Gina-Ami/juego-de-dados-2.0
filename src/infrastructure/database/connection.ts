@@ -1,5 +1,5 @@
-import { Sequelize } from 'sequelize';
-import { createGameModel, createPlayerModel } from './tables';
+import { Model, ModelStatic, Sequelize } from 'sequelize';
+import { createGameModel } from './tables';
 
 async function createDatabaseAndConnect(): Promise<Sequelize | null> {
   const databaseName = 'juego_de_dados';
@@ -59,32 +59,41 @@ async function createDatabaseAndConnect(): Promise<Sequelize | null> {
 
 interface DatabaseInfo {
   sequelize: Sequelize | null;
-  gameModel: object | null;
-  playerModel: object | null;
+  GameModel: ModelStatic<Model> | null; 
+  //playerModel: ModelStatic<Model> | null;
 }
 
 export const databaseInfo: DatabaseInfo = {
   sequelize: null,
-  gameModel: null,
-  playerModel: null
+  GameModel: null,
+  //playerModel: null,
 };
 
 export async function databaseConfiguration(): Promise<DatabaseInfo> {
   try {
     const sequelize = await createDatabaseAndConnect();
 
-    if (sequelize instanceof Sequelize) {
-      const gameModel = await createGameModel(sequelize);
-      const playerModel = await createPlayerModel(sequelize);
+      if(sequelize instanceof Sequelize) {
+          const GameModel = await createGameModel(sequelize);
+          //const playerModel = await createPlayerModel(sequelize);
 
-      databaseInfo.sequelize = sequelize;
-      databaseInfo.gameModel = gameModel;
-      databaseInfo.playerModel = playerModel;
-    } else {
-      console.error('sequelize es nulo, revisa la base de datos');
-    }
-  } catch (error) {
-    console.error('Error initializing the database:', error);
+          databaseInfo.sequelize = sequelize;
+          databaseInfo.GameModel = GameModel;
+          //databaseInfo.playerModel = playerModel;
+
+          sequelize.sync({ force: false }) // Set force to true to drop and recreate the table
+            .then(() => {
+                console.log('Table synced successfully');
+            })
+            .catch((error) => {
+                console.error('Error syncing table:', error);
+            });
+
+      }else{
+          console.error("sequelize es nulo, revisa la base de datos");
+      }
+  }catch(error){
+      console.error("Error initializing the database:", error);
   }
 
   return databaseInfo;
