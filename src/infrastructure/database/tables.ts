@@ -1,6 +1,6 @@
-import { DataTypes, Sequelize } from 'sequelize';
+import { DataTypes, Model, ModelStatic, Sequelize } from 'sequelize';
 
-export function createGameModel(sequelize: Sequelize) : object {
+export function createGameModel(sequelize: Sequelize) : ModelStatic<Model> {
     const GameTable = sequelize.define('games', {
         id_game: {
             type: DataTypes.INTEGER,
@@ -15,7 +15,7 @@ export function createGameModel(sequelize: Sequelize) : object {
         },
 
         has_won: {
-            type: DataTypes.TINYINT,
+            type: DataTypes.BOOLEAN,
             allowNull: false
         },
 
@@ -45,26 +45,17 @@ export function createGameModel(sequelize: Sequelize) : object {
     });
 
     /*
-    GameTable.belongsTo(sequelize.models.players, {
+    GameTable.belongsTo(PlayerTable, {
         foreignKey: 'player_id',
-        targetKey: 'id_player',
-        constraints: false, // Set to true if you want to enable ON DELETE and ON UPDATE actions
-        as: 'player',
-      });
+    });
     */
-
-    sequelize.sync({ force: false }) // Set force to true to drop and recreate the table
-        .then(() => {
-            console.log('Table synced successfully');
-        })
-        .catch((error) => {
-            console.error('Error syncing table:', error);
-        });
 
     return GameTable;
 }
 
-export function createPlayerModel(sequelize: Sequelize) : object {
-    const PlayerTable = new Object(); //Simplemente para que no de error, se puede eliminar.
+/*
+export function createPlayerModel(sequelize: Sequelize) : ModelStatic<Model> {
+    const PlayerTable = new ModelStatic<Model>(); //Simplemente para que no de error, se puede eliminar.
     return PlayerTable;
 }
+*/

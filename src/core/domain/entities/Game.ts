@@ -2,16 +2,20 @@ import IResult from "./IResult";
 import Player from "./Player";
 
 class Game {
-	private id: number;
-	static id_: number = 0;
-	private result?: IResult;
-	private winnerNumber: number;
-	private player: Player;
+	id: number;
+	private static id_: number = 0;
+	result?: IResult;
+	winnerNumber: number;
+	player: Player;
 
-	constructor(player: Player, winnerNumber: number = 7){
+	constructor(player: Player, winnerNumber: number = 7, result?: IResult, id_?: number){
 		this.winnerNumber = winnerNumber;
 		this.player = player;
-		this.id = Game.id_++;
+		this.result = result;
+		if (typeof id_ === "number") {
+			Game.id_ = id_;
+		}
+		this.id = Game.id_+1;
 	}
 
 	setResult(result: IResult): void {

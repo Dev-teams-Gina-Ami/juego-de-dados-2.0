@@ -3,12 +3,15 @@ class Player {
   private totalPlays: number;
   private totalWins: number;
   private readonly creationDate: Date;
+  private id: number;
+  private static id_ = 0;
 
   constructor(name: string, totalPlays: number = 0, totalWins: number = 0) {
     this.name = name;
     this.totalPlays = totalPlays;
     this.totalWins = totalWins;
     this.creationDate = new Date();
+    this.id = Player.id_+=1
   }
 
   toDTO(): {
@@ -26,6 +29,10 @@ class Player {
   }
   //use-cases
 
+  getId(): number {
+    return this.id;
+  }
+  
   PlaysCounter(): number {
     return (this.totalPlays += 1);
   }
