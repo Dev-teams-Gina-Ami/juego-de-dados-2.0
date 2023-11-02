@@ -44,18 +44,53 @@ export function createGameModel(sequelize: Sequelize) : ModelStatic<Model> {
         engine: 'InnoDB',
     });
 
-    /*
-    GameTable.belongsTo(PlayerTable, {
+    
+    GameTable.belongsTo(sequelize.models.players, {
         foreignKey: 'player_id',
     });
-    */
-
+    
     return GameTable;
 }
 
-/*
-export function createPlayerModel(sequelize: Sequelize) : ModelStatic<Model> {
-    const PlayerTable = new ModelStatic<Model>(); //Simplemente para que no de error, se puede eliminar.
+export function createPlayerModel(sequelize: Sequelize): ModelStatic<Model> {
+    const PlayerTable = sequelize.define(
+      'players',
+      {
+        id_player: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          primaryKey: true
+        },
+        name: {
+          type: DataTypes.CHAR(50),
+          allowNull: false
+        },
+        total_plays: {
+          type: DataTypes.INTEGER,
+          allowNull: false
+        },
+        total_wins: {
+          type: DataTypes.INTEGER,
+          allowNull: false
+        }
+      },
+      {
+        tableName: 'players',
+        indexes: [
+          {
+            fields: ['id_player'],
+            name: 'id_player_idx'
+          }
+        ],
+        engine: 'InnoDB'
+      }
+    );
+    //falta implementar la relacion entre las tablas:
+    // PlayerTable.hasMany(sequelize.models.game, {
+    //   foreignKey: 'player_id',
+    //   constraints: false, // Set to true if you want to enable ON DELETE and ON UPDATE actions
+    //   as: 'player'
+    // });
+  
     return PlayerTable;
-}
-*/
+  }

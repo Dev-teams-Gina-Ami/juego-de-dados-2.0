@@ -4,7 +4,7 @@
 
     interface GameMap {
         id_game: number,
-        player_id: number,  
+        player_id: number ,  
         has_won: boolean,
         dice1_value: number,
         dice2_value: number    
