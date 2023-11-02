@@ -13,17 +13,21 @@ async function createDatabaseAndConnect() : Promise<Sequelize | null>{
 
   try {
     await sequelizeWithoutDB.authenticate();
-    console.log("Conectado al servidor MySQL.");
+    console.log('Conectado al servidor MySQL.');
   } catch (err) {
-    console.error("Error de conexión a SQL:", err);
+    console.error('Error de conexión a SQL:', err);
     return null;
   }
-  
+
   try {
-    await sequelizeWithoutDB.query(`CREATE DATABASE IF NOT EXISTS ${databaseName}`);
-    console.log(`La base de datos "${databaseName}" ha sido creada o ya existe.`);
+    await sequelizeWithoutDB.query(
+      `CREATE DATABASE IF NOT EXISTS ${databaseName}`
+    );
+    console.log(
+      `La base de datos "${databaseName}" ha sido creada o ya existe.`
+    );
   } catch (err) {
-    console.error("Error creando la base de datos:", err);
+    console.error('Error creando la base de datos:', err);
     return null;
   }
 
@@ -39,10 +43,15 @@ async function createDatabaseAndConnect() : Promise<Sequelize | null>{
 
   try {
     await sequelizeWithDB.authenticate();
-    console.log(`Coonectado a la base de datos "${databaseName}" con Sequelize.`);
+    console.log(
+      `Coonectado a la base de datos "${databaseName}" con Sequelize.`
+    );
   } catch (err) {
-    console.error(`Error conectando a la base de datos "${databaseName}":`, err);
-    return null
+    console.error(
+      `Error conectando a la base de datos "${databaseName}":`,
+      err
+    );
+    return null;
   }
 
   return sequelizeWithDB;
@@ -60,9 +69,9 @@ export const databaseInfo: DatabaseInfo = {
   playerModel: null,
 };
 
-export async function databaseConfiguration() : Promise<DatabaseInfo> { 
-  try{
-      const sequelize = await createDatabaseAndConnect();
+export async function databaseConfiguration(): Promise<DatabaseInfo> {
+  try {
+    const sequelize = await createDatabaseAndConnect();
 
       if(sequelize instanceof Sequelize) {
           const PlayerModel = await createPlayerModel(sequelize);
@@ -89,6 +98,3 @@ export async function databaseConfiguration() : Promise<DatabaseInfo> {
 
   return databaseInfo;
 }
-
-
-

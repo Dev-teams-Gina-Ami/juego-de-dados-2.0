@@ -1,6 +1,6 @@
 interface IResult {
-    rolls: number[];
-    win: boolean;
+  rolls: number[];
+  win: boolean;
 }
 
 export default IResult;

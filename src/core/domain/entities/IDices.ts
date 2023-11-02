@@ -1,5 +1,5 @@
 interface IDices {
-    sides: number;
+  sides: number;
 }
 
 export default IDices;

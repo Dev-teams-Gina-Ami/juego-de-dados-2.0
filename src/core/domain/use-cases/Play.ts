@@ -1,8 +1,8 @@
-import IDices from "../entities/IDices";
-import IResult from "../entities/IResult";
+import IDices from '../entities/IDices';
+import IResult from '../entities/IResult';
 
-function roll(dice: IDices): number{
-    return Math.floor(Math.random() * (dice.sides - 1) + 1);
+function roll(dice: IDices): number {
+  return Math.floor(Math.random() * (dice.sides - 1) + 1);
 }
 
 function winOrLose(
@@ -30,4 +30,4 @@ function winOrLose(
     return result;
   }
 
-export default { roll, winOrLose, getMatchResult }
+export default { roll, winOrLose, getMatchResult };
