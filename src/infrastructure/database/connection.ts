@@ -1,14 +1,14 @@
 import { Model, ModelStatic, Sequelize } from 'sequelize';
-import { createGameModel } from './tables';
+import { createGameModel, createPlayerModel } from './tables';
 
-async function createDatabaseAndConnect(): Promise<Sequelize | null> {
-  const databaseName = 'juego_de_dados';
+async function createDatabaseAndConnect() : Promise<Sequelize | null>{
+  const databaseName = process.env.DATABASE_NAME;
 
   const sequelizeWithoutDB = new Sequelize({
     dialect: 'mysql',
-    host: '127.0.0.1',
-    username: 'root',
-    password: process.env.MYSQL_PASSWORD
+    host: process.env.MYSQL_HOST,
+    username: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
   });
 
   try {
@@ -35,10 +35,10 @@ async function createDatabaseAndConnect(): Promise<Sequelize | null> {
 
   const sequelizeWithDB = new Sequelize({
     dialect: 'mysql',
-    host: '127.0.0.1',
-    username: 'root',
+    host: process.env.MYSQL_HOST,
+    username: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
-    database: databaseName
+    database: databaseName,
   });
 
   try {
@@ -60,13 +60,13 @@ async function createDatabaseAndConnect(): Promise<Sequelize | null> {
 interface DatabaseInfo {
   sequelize: Sequelize | null;
   GameModel: ModelStatic<Model> | null; 
-  //playerModel: ModelStatic<Model> | null;
+  playerModel: ModelStatic<Model> | null;
 }
 
 export const databaseInfo: DatabaseInfo = {
   sequelize: null,
   GameModel: null,
-  //playerModel: null,
+  playerModel: null,
 };
 
 export async function databaseConfiguration(): Promise<DatabaseInfo> {
@@ -74,12 +74,12 @@ export async function databaseConfiguration(): Promise<DatabaseInfo> {
     const sequelize = await createDatabaseAndConnect();
 
       if(sequelize instanceof Sequelize) {
+          const PlayerModel = await createPlayerModel(sequelize);
           const GameModel = await createGameModel(sequelize);
-          //const playerModel = await createPlayerModel(sequelize);
 
           databaseInfo.sequelize = sequelize;
           databaseInfo.GameModel = GameModel;
-          //databaseInfo.playerModel = playerModel;
+          databaseInfo.playerModel = PlayerModel;
 
           sequelize.sync({ force: false }) // Set force to true to drop and recreate the table
             .then(() => {

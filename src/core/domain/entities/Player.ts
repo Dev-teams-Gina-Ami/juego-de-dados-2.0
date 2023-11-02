@@ -1,6 +1,7 @@
 class Player {
   static id_: number = 0;
-  private readonly id: string;
+
+  private readonly id: number;
   private readonly name: string;
   private totalPlays: number;
   private totalWins: number;
@@ -12,13 +13,16 @@ class Player {
     totalWins: number = 0,
     creationDate?: Date | undefined
   ) {
-    this.id = String(Player.id_++);
+
+    this.id = Player.id_+1;
     this.name = name;
     this.totalPlays = totalPlays;
     this.totalWins = totalWins;
     this.creationDate = creationDate;
   }
-  getId(): string | undefined {
+
+  
+  getId(): number {
     return this.id;
   }
 

@@ -18,3 +18,4 @@ export class PlaysCounter {
     await this.counter.execute(player.getTotalPlays());
   }
 }
+

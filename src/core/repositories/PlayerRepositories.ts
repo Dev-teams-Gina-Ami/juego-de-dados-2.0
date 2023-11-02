@@ -8,3 +8,4 @@ export default interface PlayerRepository {
   playsCounter(id: string): Promise<number>;
   winsCounter(id: string): Promise<number>;
 }
+
