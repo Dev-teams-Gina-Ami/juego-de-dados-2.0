@@ -4,7 +4,7 @@ describe('IResult interface', () => {
   it('rolls debe guardarse correctamente como una array de numeros', () => {
     const result: IResult = {
       rolls: [1, 2, 3],
-      win: true,
+      win: true
     };
 
     expect(result).toHaveProperty('rolls');
@@ -15,7 +15,7 @@ describe('IResult interface', () => {
   it('win debe guardarse correctamente como un boolean', () => {
     const result: IResult = {
       rolls: [4, 5, 6],
-      win: false,
+      win: false
     };
 
     expect(result).toHaveProperty('win');

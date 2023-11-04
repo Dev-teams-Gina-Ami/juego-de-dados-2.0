@@ -7,7 +7,7 @@ describe('Game', () => {
   let player: Player;
   const dummyResult: IResult = {
     rolls: [1, 2, 3],
-    win: true,
+    win: true
   };
 
   beforeEach(() => {
