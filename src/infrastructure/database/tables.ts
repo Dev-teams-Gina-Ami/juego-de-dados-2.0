@@ -16,20 +16,25 @@ export function createGameModel(sequelize: Sequelize): ModelStatic<Model>{
         primaryKey: true
       },
 
-        has_won: {
-            type: DataTypes.TINYINT,
-            allowNull: false
-        },
+      has_won: {
+          type: DataTypes.TINYINT,
+          allowNull: false
+      },
 
+      winnerNumber: {
+        type: DataTypes.TINYINT,
+        allowNull: false
+      },
+      
       dice1_value: {
         type: DataTypes.TINYINT,
         allowNull: false
       },
 
-        dice2_value: {
-            type: DataTypes.TINYINT,
-            allowNull: false
-        }, 
+      dice2_value: {
+          type: DataTypes.TINYINT,
+          allowNull: false
+      }, 
     }, {
         tableName: 'games',
         indexes: [
