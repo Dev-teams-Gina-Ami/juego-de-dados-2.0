@@ -31,15 +31,10 @@ export function createGameModel(sequelize: Sequelize): ModelStatic<Model>{
         allowNull: false
       },
 
-      dice1_value: {
-        type: DataTypes.TINYINT,
-        allowNull: false
-      },
-
-        dice2_value: {
-            type: DataTypes.TINYINT,
-            allowNull: false
-        }, 
+      dice2_value: {
+          type: DataTypes.TINYINT,
+          allowNull: false
+      }, 
     }, {
         tableName: 'games',
         indexes: [
