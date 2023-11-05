@@ -1,11 +1,11 @@
+import Game from "../entities/Game";
 import IDices from "../entities/IDices";
-import IResult from "../entities/IResult";
 
-function roll(dice: IDices): number{
+export function roll(dice: IDices): number{
     return Math.floor(Math.random() * (dice.sides - 1) + 1);
 }
 
-function winOrLose(
+export function winOrLose(
     roll1: number,
     roll2: number,
     winnerNumber: number
@@ -17,17 +17,22 @@ function winOrLose(
     }
   }
   
-  function getMatchResult(
+export function getMatchResult(
     roll1: number,
     roll2: number,
-    winnerNumber: number
-  ): IResult {
-    const result: IResult = {
-      rolls: [roll1, roll2],
-      win: winOrLose(roll1, roll2, winnerNumber)
-    };
+    winnerNumber: number,
+    game: Game
+  ): Game {
+    game.setDice1Value(roll1);
+    game.setDice2Value(roll2);
+    game.setHasWon(winOrLose(roll1, roll2, winnerNumber));
   
-    return result;
+    return game;
   }
 
-export default { roll, winOrLose, getMatchResult }
+export function doBothRolls(game: Game){
+  let dice: IDices = {sides: 6};
+  let roll1 = roll(dice);
+  let roll2 = roll(dice);
+
+}

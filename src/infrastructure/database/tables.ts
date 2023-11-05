@@ -1,28 +1,35 @@
 import { DataTypes, Model, ModelStatic, Sequelize } from 'sequelize';
 
-export function createGameModel(sequelize: Sequelize) : ModelStatic<Model> {
-    const GameTable = sequelize.define('games', {
-        id_game: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true
-        },
+export function createGameModel(sequelize: Sequelize): ModelStatic<Model>{
+  const GameTable = sequelize.define(
+    'games',
+    {
+      id_game: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
 
-        player_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            primaryKey: true,
-        },
+      player_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
 
-        has_won: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false
-        },
+      has_won: {
+          type: DataTypes.TINYINT,
+          allowNull: false
+      },
 
-        dice1_value: {
-            type: DataTypes.TINYINT,
-            allowNull: false
-        },
+      winnerNumber: {
+        type: DataTypes.TINYINT,
+        allowNull: false
+      },
+      
+      dice1_value: {
+        type: DataTypes.TINYINT,
+        allowNull: false
+      },
 
         dice2_value: {
             type: DataTypes.TINYINT,
@@ -43,7 +50,6 @@ export function createGameModel(sequelize: Sequelize) : ModelStatic<Model> {
         ],
         engine: 'InnoDB',
     });
-
     
     GameTable.belongsTo(sequelize.models.players, {
         foreignKey: 'player_id',

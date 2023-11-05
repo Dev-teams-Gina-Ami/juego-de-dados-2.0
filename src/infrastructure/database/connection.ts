@@ -50,13 +50,13 @@ async function createDatabaseAndConnect() : Promise<Sequelize | null>{
 
 interface DatabaseInfo {
   sequelize: Sequelize | null;
-  GameModel: ModelStatic<Model> | null; 
+  gameModel: ModelStatic<Model> | null; 
   playerModel: ModelStatic<Model> | null;
 }
 
 export const databaseInfo: DatabaseInfo = {
   sequelize: null,
-  GameModel: null,
+  gameModel: null,
   playerModel: null,
 };
 
@@ -65,11 +65,11 @@ export async function databaseConfiguration() : Promise<DatabaseInfo> {
       const sequelize = await createDatabaseAndConnect();
 
       if(sequelize instanceof Sequelize) {
-          const PlayerModel = await createPlayerModel(sequelize);
-          const GameModel = await createGameModel(sequelize);
+          const PlayerModel = createPlayerModel(sequelize);
+          const gameModel = createGameModel(sequelize);
 
           databaseInfo.sequelize = sequelize;
-          databaseInfo.GameModel = GameModel;
+          databaseInfo.gameModel = gameModel;
           databaseInfo.playerModel = PlayerModel;
 
           sequelize.sync({ force: false }) // Set force to true to drop and recreate the table
