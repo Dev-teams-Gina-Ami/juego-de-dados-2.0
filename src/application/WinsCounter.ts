@@ -1,10 +1,10 @@
 import PlayerRepository from '../core/repositories/PlayerRepositories';
-import IPlaysCounter from '../core/domain/entities/IPlaysCounter';
+import IWinsCounter from '../core/domain/entities/IWinsCounter';
 
 export class PlaysCounter {
   constructor(
     private readonly playerRepository: PlayerRepository,
-    private readonly counter: IPlaysCounter
+    private readonly counter: IWinsCounter
   ) {}
 
   async exectue(playerId: string) {
@@ -14,8 +14,7 @@ export class PlaysCounter {
       throw new Error(`Player id not found ${playerId}`);
     }
     // falta implementar el contador
-    console.log('Player', player.getTotalPlays());
-    await this.counter.execute(player.getTotalPlays());
+    console.log('Player', player.getTotalWins());
+    await this.counter.execute(player.getTotalWins());
   }
 }
-

@@ -1,4 +1,4 @@
-import Game from "../domain/entities/Game"
+import Game from '../domain/entities/Game';
 
 export interface GameRepository {
     add(game: Game): Promise<void>;
