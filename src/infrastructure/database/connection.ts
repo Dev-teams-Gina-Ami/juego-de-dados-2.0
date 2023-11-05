@@ -75,8 +75,8 @@ export async function databaseConfiguration(): Promise<DatabaseInfo> {
     const sequelize = await createDatabaseAndConnect();
 
     if (sequelize instanceof Sequelize) {
-      const PlayerModel = await createPlayerModel(sequelize);
-      const GameModel = await createGameModel(sequelize);
+      const PlayerModel = createPlayerModel(sequelize);
+      const GameModel = createGameModel(sequelize);
 
       databaseInfo.sequelize = sequelize;
       databaseInfo.GameModel = GameModel;

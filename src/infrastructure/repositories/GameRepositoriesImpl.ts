@@ -63,7 +63,7 @@ export class GameRepositoriesImpl implements GameRepository {
     if (this.GameModel != null) {
       try {
         await this.GameModel.update(game, {
-          where: { id_game: game.id }
+          where: { id_game: game.getId() }
         });
       } catch (error) {
         console.error('Error updating game:', error);
