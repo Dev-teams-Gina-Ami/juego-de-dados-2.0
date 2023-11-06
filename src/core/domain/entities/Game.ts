@@ -1,50 +1,78 @@
-import IResult from './IResult';
-import Player from './Player';
-
 class Game {
-  private id: number;
-  static id_: number = 0;
-  private result?: IResult;
-  private winnerNumber: number;
-  private player: Player;
+	private id: number;
+	private playerId: number;
+	private haswon?: boolean;
+	private winnerNumber: number;
+	private dice1_value: number;
+	private dice2_value: number;
 
-  constructor(player: Player, winnerNumber: number = 7) {
-    this.winnerNumber = winnerNumber;
-    this.player = player;
-    this.id = Game.id_++;
-  }
+	private static id_: number = 0;
 
-  setResult(result: IResult): void {
-    this.result = result;
-  }
+	constructor(playerId: number, winnerNumber: number = 7, dice1_value: number = 0, dice2_value: number = 0, haswon?: boolean, id_?: number){
+		this.playerId = playerId;
+		this.winnerNumber = winnerNumber;
+		this.dice1_value = dice1_value;
+		this.dice2_value = dice2_value;
+		this.haswon = haswon;
 
-  setId(id: number): void {
-    this.id = id;
-  }
+		if (typeof id_ === "number") {
+			Game.id_ = id_;
+		}
 
-  setWinnerNumber(winnerNumber: number): void {
-    this.winnerNumber = winnerNumber;
-  }
+		this.id = Game.id_+1;
+	}
 
-  setPlayer(player: Player): void {
-    this.player = player;
-  }
+	setId(id: number): void {
+		this.id = id;
+	}
 
-  getResult(): IResult | undefined {
-    return this.result;
-  }
+	setPlayerId(playerId: number): void {
+		this.playerId = playerId;
+	}
 
-  getWinnerNumber(): number {
-    return this.winnerNumber;
-  }
+	setHasWon(haswon: boolean): void {
+		this.haswon = haswon;
+	}
 
-  getId(): number {
-    return this.id;
-  }
+	setWinnerNumber(winnerNumber: number): void{
+		this.winnerNumber = winnerNumber;
+	}
 
-  getPlayer(): Player {
-    return this.player;
-  }
+	setDice1Value(dice1_value: number): void {
+		this.dice1_value = dice1_value;
+	}
+
+	setDice2Value(dice2_value: number): void {
+		this.dice2_value = dice2_value;
+	}
+
+	setIdCounter(id_: number): void {
+		Game.id_ = id_;
+	}
+
+	getId() : number {
+		return this.id;
+	}
+
+	getPlayerId() : number {
+		return this.playerId;
+	}
+
+	getHasWon() : boolean | undefined {
+		return this.haswon;
+	}
+
+	getWinnerNumber() : number {
+		return this.winnerNumber;
+	}
+
+	getDice1Value() : number {
+		return this.dice1_value;
+	}
+
+	getDice2Value() : number {
+		return this.dice2_value;
+	}
 }
 
 export default Game;
