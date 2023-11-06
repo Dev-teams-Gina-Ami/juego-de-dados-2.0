@@ -7,4 +7,3 @@ export interface PlayerRepository {
   updatePlayer(player: Player): Promise<void>;
   deletePlayer(id: string): Promise<void>;
 }
-

@@ -11,7 +11,7 @@ interface PlayerMap {
 }
 
 export class PlayerRepositoriesImpl implements PlayerRepository {
-  PlayerModel = databaseInfo.PlayerModel;
+  PlayerModel = databaseInfo.playerModel;
 
   getPlayerData(player: Player): PlayerMap {
     return {

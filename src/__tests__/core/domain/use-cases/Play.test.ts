@@ -1,4 +1,4 @@
-import {roll, winOrLose } from '../../../../core/domain/use-cases/Play'; 
+import { roll, winOrLose } from '../../../../core/domain/use-cases/Play';
 
 describe('Tirada de dados', () => {
   it('Tiene que generar un numero random dentro del rango especificado', () => {
