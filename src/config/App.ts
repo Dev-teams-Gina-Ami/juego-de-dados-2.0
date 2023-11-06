@@ -2,7 +2,8 @@ import express from 'express';
 import http from 'http';
 import dotenv from 'dotenv';
 import { databaseConfiguration } from '../infrastructure/database/connection';
-import { gameRouter } from '../application/routes/GameRoutes';
+import { gameRouter } from '../application/routes/GameRoutes'
+
 
 const app = express();
 const server = http.createServer(app);
