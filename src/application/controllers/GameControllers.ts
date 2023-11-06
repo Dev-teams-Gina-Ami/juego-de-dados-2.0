@@ -4,7 +4,7 @@ import Player from '../../core/domain/entities/Player';
 import { createGame, games, gametoJSON } from '../../core/domain/use-cases/Games';
 import { GameRepositoriesImpl } from '../../infrastructure/repositories/GameRepositoriesImpl';
 
-const Database = new GameRepositoriesImpl();
+const GameRepositories = new GameRepositoriesImpl();
 
 export const doRoll = (req: Request, res: Response) => {
     let playerId = req.params.id;
@@ -12,7 +12,7 @@ export const doRoll = (req: Request, res: Response) => {
     let player: Player = new Player('player1'); //Dejalo asi de momento
     let game = playMatch(player);
     try{
-        Database.add(game);
+        GameRepositories.add(game);
         //update player with new count;
         res.status(201).json('Roll done'); 
     }catch(error){
@@ -24,14 +24,14 @@ export const doRoll = (req: Request, res: Response) => {
 }
 
 export const deleteRolls = (req: Request, res: Response) => {
-    Database.findAll();
+    GameRepositories.findAll();
     let playerId = req.body.id;
     try{
         for(let i=0; i < games.length; i++){
             if(playerId == games[i].getPlayerId()){
                 games[i].setDice1Value(0);
                 games[i].setDice2Value(0);
-                Database.update(games[i]);
+                GameRepositories.update(games[i]);
             }
         }
         res.status(204).json('Rolls borrados');
@@ -42,7 +42,7 @@ export const deleteRolls = (req: Request, res: Response) => {
 }
 
 export const getRolls = (req: Request, res: Response) => {
-    Database.findAll();
+    GameRepositories.findAll();
     let playerId = req.body.id;
     let jsonData: Object[] = [];
     for(let i=0; i < games.length; i++){
