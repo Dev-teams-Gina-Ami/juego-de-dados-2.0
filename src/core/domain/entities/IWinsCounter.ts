@@ -3,4 +3,3 @@ interface IWinsCounter {
 }
 
 export default IWinsCounter;
-

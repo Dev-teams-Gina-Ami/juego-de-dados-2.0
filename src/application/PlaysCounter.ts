@@ -1,4 +1,4 @@
-import PlayerRepository from '../core/repositories/PlayerRepositories';
+import { PlayerRepository } from '../core/repositories/PlayerRepositories';
 import IPlaysCounter from '../core/domain/entities/IPlaysCounter';
 
 export class PlaysCounter {
@@ -18,4 +18,3 @@ export class PlaysCounter {
     await this.counter.execute(player.getTotalPlays());
   }
 }
-

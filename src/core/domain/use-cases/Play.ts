@@ -1,10 +1,11 @@
+
 import Game from "../entities/Game";
 import IDices from "../entities/IDices";
 import Player from "../entities/Player";
 import { createGame, getLastGame } from "./Games";
 
-export function roll(dice: IDices): number{
-    return Math.floor(Math.random() * (dice.sides - 1) + 1);
+export function roll(dice: IDices): number {
+  return Math.floor(Math.random() * (dice.sides - 1) + 1);
 }
 
 export function winOrLose(

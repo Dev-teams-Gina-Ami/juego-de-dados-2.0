@@ -4,55 +4,61 @@ import { databaseInfo } from "../database/connection";
 import { games, getLastId, resetGamesList } from "../../core/domain/use-cases/Games";
 
 interface GameMap {
-    id_game: number,
-    player_id: number ,  
-    has_won: boolean,
-    winnerNumber: number,
-    dice1_value: number,
-    dice2_value: number    
+  id_game: number;
+  player_id: number;
+  has_won: boolean;
+  winnerNumber: number;
+  dice1_value: number;
+  dice2_value: number;
 }
 
 export class GameRepositoriesImpl implements GameRepository {
+  GameModel = databaseInfo.gameModel;
 
-    GameModel = databaseInfo.gameModel;
+  getGameData(game: Game): GameMap {
+    return {
+      id_game: game.getId(),
+      player_id: game.getPlayerId(),
+      has_won: game.getHasWon() || false, //valor por defecto por si no hay valor
+      winnerNumber: game.getWinnerNumber(),
+      dice1_value: game.getDice1Value() || 0, //valor por defecto por si no hay valor
+      dice2_value: game.getDice2Value() || 0 //valor por defecto por si no hay valor
+    };
+  }
 
-    getGameData(game: Game) : GameMap {
-        return {
-            id_game: game.getId(),
-            player_id: game.getPlayerId(),
-            has_won: game.getHasWon() || false, //valor por defecto por si no hay valor
-            winnerNumber: game.getWinnerNumber(),
-            dice1_value: game.getDice1Value() || 0, //valor por defecto por si no hay valor
-            dice2_value: game.getDice2Value() || 0 //valor por defecto por si no hay valor
-        }
-    }
+  getGameClass(gameData: any) {
+    let id = gameData.dataValues.id_game;
+    let playerId = gameData.dataValues.player_id;
+    let hasWon = gameData.dataValues.has_won;
+    let winnerNumber = gameData.dataValues.winnerNumber;
+    let dice1_value = gameData.dataValues.dice1_value;
+    let dice2_value = gameData.dataValues.dice2_values;
 
-    getGameClass(gameData: any) {
-        let id = gameData.dataValues.id_game;
-        let playerId = gameData.dataValues.player_id;
-        let hasWon = gameData.dataValues.has_won;
-        let winnerNumber = gameData.dataValues.winnerNumber;
-        let dice1_value = gameData.dataValues.dice1_value;
-        let dice2_value = gameData.dataValues.dice2_values;
+    let gameInstance = new Game(
+      playerId,
+      winnerNumber,
+      dice1_value,
+      dice2_value,
+      hasWon
+    );
+    gameInstance.setId(id);
 
-        let gameInstance = new Game(playerId, winnerNumber, dice1_value, dice2_value, hasWon)
-        gameInstance.setId(id);
-        
-        return gameInstance;
-    }
+    return gameInstance;
+  }
+
 
     async add(game: Game): Promise<void> {
         this.findAll();
         const GameData = this.getGameData(game);
+    if (this.GameModel != null) {
+      try {
+        await this.GameModel.create(GameData as any);
+      } catch (error) {
+        console.error('Error adding game:', error);
+      }
+    }
+  }
 
-        if(this.GameModel != null){
-            try{               
-                await this.GameModel.create(GameData as any);
-            }catch(error){
-                console.error('Error adding game:', error);
-            }
-        }
-    }   
 
     async findById(id: number): Promise<Game | null>{
         if(this.GameModel != null){
@@ -65,6 +71,7 @@ export class GameRepositoriesImpl implements GameRepository {
             }
         }
         return null;
+      }
     }
     
     async findAll(): Promise<Game[] | null> {
@@ -80,26 +87,29 @@ export class GameRepositoriesImpl implements GameRepository {
             return games;
         }
 
-        return null;
+      console.log(games);
+      return games;
     }
-    
-    async update(game: Game) {
-        if(this.GameModel != null){
-            try {
-                await this.GameModel.update(game, {
-                    where: { id_game: game.getId() },
-                });
-                console.log('Updated');
-            } catch (error) {
-                console.error('Error updating game:', error);
-            }
-        }
+
+    return null;
+  }
+
+  async update(game: Game) {
+    if (this.GameModel != null) {
+      try {
+        await this.GameModel.update(game, {
+          where: { id_game: game.getId() }
+        });
+        console.log('Updated');
+      } catch (error) {
+        console.error('Error updating game:', error);
+      }
     }
-    
-    async delete(id: number): Promise<void> {
-        if(this.GameModel != null){
-            await this.GameModel.destroy({ where: { id_game: id } 
-            });
-        }
+  }
+
+  async delete(id: number): Promise<void> {
+    if (this.GameModel != null) {
+      await this.GameModel.destroy({ where: { id_game: id } });
     }
+  }
 }
