@@ -1,41 +1,26 @@
-// import Player from "../../../../core/domain/entities/Player";
+import Player from '../../../../core/domain/entities/Player';
 
-describe("Player", () => {
-    test("dummy test", () => {
-    });
+describe('Player', () => {
+  let player: Player;
 
-    expect(true);
-//   test("given a Player with a name passed by contructor, when its called to playsCounter method should return te correct totalPlays value.", () => {
-//     const name = "testname";
-//     const player = new Player(name);
+  beforeEach(() => {
+    player = new Player('Alice');
+  });
 
-//     player.PlaysCounter();
-//     player.PlaysCounter();
-//     player.PlaysCounter();
+  test('El constructor inicializa las propiedades correctamente', () => {
+    expect(player.getId()).toBeDefined();
+    expect(player.getCreationDate()).toBeUndefined();
+    expect(player.getTotalWins()).toBe(0);
+    expect(player.getTotalPlays()).toBe(0);
+  });
 
-//     const expectedValue = 3;
-//     const result = player.toDTO().totalPlays;
+  test('setTotalPlays debe introducir el valor correcto', () => {
+    player.setTotalPlays(5);
+    expect(player.getTotalPlays()).toBe(5);
+  });
 
-//     expect(result).toEqual(expectedValue);
-//   });
-
-//   test("given a Player with a name and 4 games and 1 win passed by contructor, when its called to calculateWinRatio method should return te correct % value.", () => {
-//     const name = "test";
-//     const player = new Player(name, 4, 1);
-
-//     const expectedValue = 25;
-//     const result = player.calculateWinRatio();
-
-//     expect(result).toBe(expectedValue);
-//   });
-
-//   test("given a Player with a name and 4 games and 1 win passed by contructor, when its called to calculateWinRatio method should return te correct % value.", () => {
-//     const name = "test";
-//     const player = new Player(name);
-
-//     const expectedValue = name;
-//     const result = player.toDTO().name;
-
-//     expect(result).toContain(expectedValue);
-//   });
+  test('setTotalWins debe introducir el valor correcto', () => {
+    player.setTotalWins(7);
+    expect(player.getTotalWins()).toBe(7);
+  });
 });

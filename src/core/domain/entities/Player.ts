@@ -2,7 +2,7 @@ class Player {
   static id_: number = 0;
 
   private readonly id: number;
-  private readonly name: string;
+  private name: string;
   private totalPlays: number;
   private totalWins: number;
   private readonly creationDate: Date | undefined;
@@ -13,15 +13,13 @@ class Player {
     totalWins: number = 0,
     creationDate?: Date | undefined
   ) {
-
-    this.id = Player.id_+1;
+    this.id = Player.id_ + 1;
     this.name = name;
     this.totalPlays = totalPlays;
     this.totalWins = totalWins;
     this.creationDate = creationDate;
   }
 
-  
   getId(): number {
     return this.id;
   }
@@ -40,6 +38,10 @@ class Player {
 
   getCreationDate(): Date | undefined {
     return this.creationDate;
+  }
+
+  setName(newName: string): void {
+    this.name = newName;
   }
 
   setTotalPlays(newTotalPlays: number): void {

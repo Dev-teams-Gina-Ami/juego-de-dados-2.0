@@ -1,4 +1,4 @@
-import PlayerRepository from '../core/repositories/PlayerRepositories';
+import { PlayerRepository } from '../core/repositories/PlayerRepositories';
 import IWinsCounter from '../core/domain/entities/IWinsCounter';
 
 export class PlaysCounter {
