@@ -1,6 +1,7 @@
 import { GameRepository } from "../../core/repositories/GameRepositories";
 import Game from "../../core/domain/entities/Game"
 import { databaseInfo } from "../database/connection";
+import { games, getLastId, resetGamesList } from "../../core/domain/use-cases/Games";
 
 interface GameMap {
     id_game: number,
@@ -41,6 +42,7 @@ export class GameRepositoriesImpl implements GameRepository {
     }
 
     async add(game: Game): Promise<void> {
+        this.findAll();
         const GameData = this.getGameData(game);
 
         if(this.GameModel != null){
@@ -55,11 +57,9 @@ export class GameRepositoriesImpl implements GameRepository {
     async findById(id: number): Promise<Game | null>{
         if(this.GameModel != null){
             try{
-                const foundGame = await this.GameModel.findByPk(id);
-                console.log(foundGame);
+                const foundGame = await this.GameModel.findByPk(id);;
                 return this.getGameClass(foundGame);
             } catch (error) {
-                // Handle any potential errors
                 console.error('Error finding game by ID:', error);
                 return null;
             }
@@ -70,14 +70,13 @@ export class GameRepositoriesImpl implements GameRepository {
     async findAll(): Promise<Game[] | null> {
         if(this.GameModel != null){
             const allGames = await this.GameModel.findAll();
-            console.log(allGames);
-            let games: Game[] = [];
-
+            resetGamesList();
+            
             for(let i=0; i < allGames.length; i++){
                 games.push(this.getGameClass(allGames[i]));
             }
-
-            console.log(games);
+            Game.setIdCounter(getLastId());
+  
             return games;
         }
 

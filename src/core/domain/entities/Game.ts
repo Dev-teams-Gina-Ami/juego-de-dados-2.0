@@ -46,7 +46,7 @@ class Game {
 		this.dice2_value = dice2_value;
 	}
 
-	setIdCounter(id_: number): void {
+	static setIdCounter(id_: number): void {
 		Game.id_ = id_;
 	}
 

@@ -1,38 +1,40 @@
 import Game from "../entities/Game";
 import IDices from "../entities/IDices";
+import Player from "../entities/Player";
+import { createGame, getLastGame } from "./Games";
 
 export function roll(dice: IDices): number{
     return Math.floor(Math.random() * (dice.sides - 1) + 1);
 }
 
 export function winOrLose(
-    roll1: number,
-    roll2: number,
-    winnerNumber: number
-  ): boolean {
-    if (roll1 + roll2 == winnerNumber) {
-      return true;
+    game: Game,
+  ): void {
+    if (game.getDice1Value() + game.getDice2Value() == game.getWinnerNumber()) {
+      game.setHasWon(true);
     } else {
-      return false;
+      game.setHasWon(false);
     }
   }
-  
-export function getMatchResult(
-    roll1: number,
-    roll2: number,
-    winnerNumber: number,
-    game: Game
-  ): Game {
-    game.setDice1Value(roll1);
-    game.setDice2Value(roll2);
-    game.setHasWon(winOrLose(roll1, roll2, winnerNumber));
-  
-    return game;
-  }
 
-export function doBothRolls(game: Game){
+export function doBothRolls(game: Game) : void{
   let dice: IDices = {sides: 6};
-  let roll1 = roll(dice);
-  let roll2 = roll(dice);
+  game.setDice1Value(roll(dice));
+  game.setDice2Value(roll(dice));
+}
 
+export function playMatch(player: Player) : Game{
+  createGame(player.getId());
+  let game = getLastGame();
+  doBothRolls(game);
+  winOrLose(game);
+  
+  if(player.getTotalPlays() != undefined){
+    player.setTotalPlays(player.getTotalPlays() + 1);
+  }
+  if(game.getHasWon()){
+    player.setTotalWins(player.getTotalWins() + 1);
+  }
+  
+  return game;
 }
