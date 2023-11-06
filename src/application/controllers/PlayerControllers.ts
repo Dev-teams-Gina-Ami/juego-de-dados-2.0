@@ -4,9 +4,13 @@ import { PlayerRepositoriesImpl } from '../../infrastructure/repositories/Player
 
 const playerRepositories = new PlayerRepositoriesImpl();
 
-export const algo = (req: Request, res: Response) => {
+export const getPlayer = (req: Request, res: Response) => {
   let playerId = req.params.id;
 
-  let player: Player = new Player('player1');
-  let player;
+  let jsonData: Object[] = [];
+  for (let i = 0; i < players.length; i++) {
+    if (playerId == players[i].getPlayerId()) {
+      jsonData.push(playertoJSON(players[i]));
+    }
+  } //////////////aqui
 };
