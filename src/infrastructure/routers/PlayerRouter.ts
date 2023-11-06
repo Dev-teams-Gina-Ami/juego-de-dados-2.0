@@ -1,17 +1,17 @@
-import express from 'express';
-import { Request, Response, NextFunction } from 'express';
+// import express from 'express';
+// import { Request, Response, NextFunction } from 'express';
 // import { MPlayer } from '../../_domain/repositories/MPlayer';
 
-import { playerController } from './dependencies';
+// import { playerController } from './dependencies';
 
-export const playerRouter = express.Router();
+// export const playerRouter = express.Router();
 
-playerRouter.get('/hello');
+// playerRouter.get('/hello');
 
-playerRouter.post(
-  '/:id/counter',
-  playerController.execute.bind(playerController)
-);
+// playerRouter.post(
+//   '/:id/counter',
+//   playerController.execute.bind(playerController)
+// );
 
 // playerRouter.get('/:id', (req: Request, res: Response, next: NextFunction) => {
 //   console.log(req.params);
