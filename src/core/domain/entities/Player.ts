@@ -24,15 +24,15 @@ class Player {
     return this.id;
   }
 
-  getName(): string | undefined {
+  getName(): string {
     return this.name;
   }
 
-  getTotalPlays(): number | undefined {
+  getTotalPlays(): number {
     return this.totalPlays;
   }
 
-  getTotalWins(): number | undefined {
+  getTotalWins(): number {
     return this.totalWins;
   }
 
