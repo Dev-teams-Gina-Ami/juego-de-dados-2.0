@@ -1,11 +1,11 @@
 class Player {
-  static id_: number = 0;
-
-  private readonly id: number;
+  private id: number;
   private name: string;
   private totalPlays: number;
   private totalWins: number;
-  private readonly creationDate: Date | undefined;
+  private creationDate: Date | undefined;
+
+  private static id_: number = 0;
 
   constructor(
     name: string,
@@ -24,20 +24,24 @@ class Player {
     return this.id;
   }
 
-  getName(): string | undefined {
+  getName(): string {
     return this.name;
   }
 
-  getTotalPlays(): number | undefined {
+  getTotalPlays(): number {
     return this.totalPlays;
   }
 
-  getTotalWins(): number | undefined {
+  getTotalWins(): number {
     return this.totalWins;
   }
 
   getCreationDate(): Date | undefined {
     return this.creationDate;
+  }
+
+  setId(newId: number): void {
+    this.id = newId;
   }
 
   setName(newName: string): void {
@@ -50,6 +54,10 @@ class Player {
 
   setTotalWins(newTotalWins: number): void {
     this.totalWins = newTotalWins;
+  }
+
+  setCreationDate(newCreationDate: Date): void {
+    this.creationDate = newCreationDate;
   }
 }
 

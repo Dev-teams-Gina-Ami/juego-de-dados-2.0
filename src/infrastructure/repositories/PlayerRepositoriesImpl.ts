@@ -5,9 +5,9 @@ import { databaseInfo } from '../database/connection';
 
 interface PlayerMap {
   id_player: number;
-  name: string | undefined;
-  totalPlays: number | undefined;
-  totalWins: number | undefined;
+  name: string;
+  totalPlays: number;
+  totalWins: number;
 }
 
 export class PlayerRepositoriesImpl implements PlayerRepository {
@@ -22,6 +22,18 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     };
   }
 
+  getPlayerClass(playerData: any) {
+    let id: playerData.dataValues.id_player;
+    let name: playerData.dataValues.name;
+    let totalPlays: playerData.dataValues.total_plays;
+    let totalWins: playerData.dataValues.total_wins;
+
+    let playerInstance = new Player(name, totalPlays, totalWins);
+    playerInstance.setId(id);
+
+    return playerInstance;
+  }
+
   async createPlayer(player: Player): Promise<void> {
     const PlayerData = this.getPlayerData(player);
 
@@ -33,11 +45,12 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
       }
     }
   }
+
   async findPlayerById(id: string): Promise<any | null> {
     if (this.PlayerModel != null) {
       try {
         const foundPlayer = await this.PlayerModel.findByPk(id);
-        return foundPlayer;
+        return this.getPlayerClass(foundPlayer);
       } catch (error) {
         console.error('Error finding player by Id:', error);
         return null;
@@ -46,10 +59,14 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     return null;
   }
 
-  async findAllPlayers(): Promise<any | null> {
+  async findAllPlayers(): Promise<Player[] | null> {
     if (this.PlayerModel != null) {
       const allPlayers = await this.PlayerModel.findAll();
-      return allPlayers;
+      let players: Player[] = [];
+      for (let i = 0; i < allPlayers.length; i++) {
+        players.push(this.getPlayerClass(allPlayers[i]));
+      }
+      return players;
     }
     return null;
   }

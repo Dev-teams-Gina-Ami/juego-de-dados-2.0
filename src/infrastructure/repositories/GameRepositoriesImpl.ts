@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { GameRepository } from '../../core/repositories/GameRepositories';
 import Game from '../../core/domain/entities/Game';
 import { databaseInfo } from '../database/connection';
