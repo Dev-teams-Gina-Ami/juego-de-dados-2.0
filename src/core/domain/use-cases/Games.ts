@@ -14,8 +14,19 @@ export function getLastGame() {
     return games[games.length - 1];
 }
 
+
 export function getLastId() {
-    return games[games.length - 1].getId();
+    let highestId = 0;
+
+    if(games.length != 0){
+        for (let i=0; i < games.length; i++){
+            if(highestId < games[i].getId()){
+                highestId = games[i].getId()
+            }
+        } 
+    }
+
+    return highestId;
 }
 
 export function resetGamesList() {
