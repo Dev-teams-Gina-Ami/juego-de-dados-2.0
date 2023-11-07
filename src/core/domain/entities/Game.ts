@@ -19,7 +19,7 @@ class Game {
 			Game.id_ = id_;
 		}
 
-		this.id = Game.id_+1;
+		this.id = ++Game.id_;
 	}
 
 	setId(id: number): void {
