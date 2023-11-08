@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { DataTypes, Model, ModelStatic, Sequelize } from 'sequelize';
 
 export function createGameModel(sequelize: Sequelize): ModelStatic<Model> {

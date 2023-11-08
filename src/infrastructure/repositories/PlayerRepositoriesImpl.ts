@@ -1,7 +1,11 @@
 /* eslint-disable camelcase */
 import { PlayerRepository } from '../../core/repositories/PlayerRepositories';
 import Player from '../../core/domain/entities/Player';
-import { players, getLastId, resetPlayersList } from '../../core/domain/use-cases/Players';
+import {
+  players,
+  getLastId,
+  resetPlayersList
+} from '../../core/domain/use-cases/Players';
 
 interface PlayerMap {
   id_player: number;
@@ -11,7 +15,6 @@ interface PlayerMap {
 }
 
 export class PlayerRepositoriesImpl implements PlayerRepository {
-
   static PlayerModel: any;
 
   getPlayerData(player: Player): PlayerMap {
@@ -24,16 +27,12 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
   }
 
   getPlayerClass(playerData: any) {
-    let id: playerData.dataValues.id_player;
-    let name: playerData.dataValues.name;
-    let totalPlays: playerData.dataValues.total_plays;
-    let totalWins: playerData.dataValues.total_wins;
+    let id = playerData.dataValues.id_player;
+    let name = playerData.dataValues.name;
+    let totalPlays = playerData.dataValues.total_plays;
+    let totalWins = playerData.dataValues.total_wins;
 
-    let playerInstance = new Player(
-      name, 
-      totalPlays, 
-      totalWins
-    );
+    let playerInstance = new Player(name, totalPlays, totalWins);
     playerInstance.setId(id);
 
     return playerInstance;
@@ -51,10 +50,11 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     }
   }
 
-  async findPlayerById(id: string): Promise<any | null> {
+  async findPlayerById(id: number): Promise<Player | null> {
     if (PlayerRepositoriesImpl.PlayerModel != null) {
       try {
-        const foundPlayer = await PlayerRepositoriesImpl.PlayerModel.findByPk(id);
+        const foundPlayer =
+          await PlayerRepositoriesImpl.PlayerModel.findByPk(id);
         return this.getPlayerClass(foundPlayer);
       } catch (error) {
         console.error('Error finding player by Id:', error);
@@ -77,11 +77,11 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
 
       return players;
     }
-    
+
     return null;
   }
 
-  async updatePlayer(player: Player): Promise<void> {
+  async updatePlayer(player: Player) {
     if (PlayerRepositoriesImpl.PlayerModel != null) {
       try {
         await PlayerRepositoriesImpl.PlayerModel.update(player, {
@@ -93,9 +93,11 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     }
   }
 
-  async deletePlayer(id: string): Promise<void> {
+  async deletePlayer(id: number): Promise<void> {
     if (PlayerRepositoriesImpl.PlayerModel != null) {
-      await PlayerRepositoriesImpl.PlayerModel.destroy({ where: { id_player: id } });
+      await PlayerRepositoriesImpl.PlayerModel.destroy({
+        where: { id_player: id }
+      });
     }
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Model, ModelStatic, Sequelize } from 'sequelize';
 import { createGameModel, createPlayerModel } from './tables';
 
