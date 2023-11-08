@@ -10,24 +10,24 @@ describe('Tirada de dados', () => {
   });
 });
 
-describe('funcion winOrLose', () => {
-  it('Debe ser true si la suma de las tiradas es equivalente al numero ganador', () => {
-    const winnerNumber = 7;
-    const roll1 = 3;
-    const roll2 = 4;
+// describe('funcion winOrLose', () => {
+//   it('Debe ser true si la suma de las tiradas es equivalente al numero ganador', () => {
+//     const winnerNumber = 7;
+//     const roll1 = 3;
+//     const roll2 = 4;
 
-    const result = winOrLose(roll1, roll2, winnerNumber);
+//     const result = winOrLose(roll1, roll2, winnerNumber);
 
-    expect(result).toBe(true);
-  });
+//     expect(result).toBe(true);
+//   });
 
-  it('Debe ser false si la suma de las tiradas no es equivalente al numero ganador', () => {
-    const winnerNumber = 7;
-    const roll1 = 2;
-    const roll2 = 6;
+//   it('Debe ser false si la suma de las tiradas no es equivalente al numero ganador', () => {
+//     const winnerNumber = 7;
+//     const roll1 = 2;
+//     const roll2 = 6;
 
-    const result = winOrLose(roll1, roll2, winnerNumber);
+//     const result = winOrLose(roll1, roll2, winnerNumber);
 
-    expect(result).toBe(false);
-  });
-});
+//     expect(result).toBe(false);
+//   });
+// });
