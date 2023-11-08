@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { PlayerRepository } from '../../core/repositories/PlayerRepositories';
 import Player from '../../core/domain/entities/Player';
-import { databaseInfo } from '../database/connection';
+import { players, getLastId, resetPlayersList } from '../../core/domain/use-cases/Players';
 
 interface PlayerMap {
   id_player: number;
@@ -11,14 +11,15 @@ interface PlayerMap {
 }
 
 export class PlayerRepositoriesImpl implements PlayerRepository {
-  PlayerModel = databaseInfo.playerModel;
+
+  static PlayerModel: any;
 
   getPlayerData(player: Player): PlayerMap {
     return {
       id_player: player.getId(),
       name: player.getName(),
-      totalPlays: player.getTotalPlays(),
-      totalWins: player.getTotalWins()
+      totalPlays: player.getTotalPlays() || 0, //valor por defecto por si no hay valor
+      totalWins: player.getTotalWins() || 0 //valor por defecto por si no hay valor
     };
   }
 
@@ -28,7 +29,11 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     let totalPlays: playerData.dataValues.total_plays;
     let totalWins: playerData.dataValues.total_wins;
 
-    let playerInstance = new Player(name, totalPlays, totalWins);
+    let playerInstance = new Player(
+      name, 
+      totalPlays, 
+      totalWins
+    );
     playerInstance.setId(id);
 
     return playerInstance;
@@ -37,9 +42,9 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
   async createPlayer(player: Player): Promise<void> {
     const PlayerData = this.getPlayerData(player);
 
-    if (this.PlayerModel != null) {
+    if (PlayerRepositoriesImpl.PlayerModel != null) {
       try {
-        await this.PlayerModel.create(PlayerData as any);
+        await PlayerRepositoriesImpl.PlayerModel.create(PlayerData as any);
       } catch (error) {
         console.error('Error creating player', error);
       }
@@ -47,9 +52,9 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
   }
 
   async findPlayerById(id: string): Promise<any | null> {
-    if (this.PlayerModel != null) {
+    if (PlayerRepositoriesImpl.PlayerModel != null) {
       try {
-        const foundPlayer = await this.PlayerModel.findByPk(id);
+        const foundPlayer = await PlayerRepositoriesImpl.PlayerModel.findByPk(id);
         return this.getPlayerClass(foundPlayer);
       } catch (error) {
         console.error('Error finding player by Id:', error);
@@ -60,21 +65,26 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
   }
 
   async findAllPlayers(): Promise<Player[] | null> {
-    if (this.PlayerModel != null) {
-      const allPlayers = await this.PlayerModel.findAll();
-      let players: Player[] = [];
+    if (PlayerRepositoriesImpl.PlayerModel != null) {
+      resetPlayersList();
+      const allPlayers = await PlayerRepositoriesImpl.PlayerModel.findAll();
+
       for (let i = 0; i < allPlayers.length; i++) {
         players.push(this.getPlayerClass(allPlayers[i]));
       }
+
+      Player.setIdCounter(getLastId());
+
       return players;
     }
+    
     return null;
   }
 
   async updatePlayer(player: Player): Promise<void> {
-    if (this.PlayerModel != null) {
+    if (PlayerRepositoriesImpl.PlayerModel != null) {
       try {
-        await this.PlayerModel.update(player, {
+        await PlayerRepositoriesImpl.PlayerModel.update(player, {
           where: { id_game: player.getId() }
         });
       } catch (error) {
@@ -84,8 +94,8 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
   }
 
   async deletePlayer(id: string): Promise<void> {
-    if (this.PlayerModel != null) {
-      await this.PlayerModel.destroy({ where: { id_player: id } });
+    if (PlayerRepositoriesImpl.PlayerModel != null) {
+      await PlayerRepositoriesImpl.PlayerModel.destroy({ where: { id_player: id } });
     }
   }
 }
