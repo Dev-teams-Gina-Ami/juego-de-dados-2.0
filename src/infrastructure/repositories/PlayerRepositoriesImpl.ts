@@ -10,8 +10,8 @@ import {
 interface PlayerMap {
   id_player: number;
   name: string;
-  totalPlays: number;
-  totalWins: number;
+  total_plays: number;
+  total_wins: number;
 }
 
 export class PlayerRepositoriesImpl implements PlayerRepository {
@@ -21,8 +21,8 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     return {
       id_player: player.getId(),
       name: player.getName(),
-      totalPlays: player.getTotalPlays() || 0, //valor por defecto por si no hay valor
-      totalWins: player.getTotalWins() || 0 //valor por defecto por si no hay valor
+      total_plays: player.getTotalPlays() || 0, //valor por defecto por si no hay valor
+      total_wins: player.getTotalWins() || 0 //valor por defecto por si no hay valor
     };
   }
 
@@ -40,6 +40,7 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
 
   async createPlayer(player: Player): Promise<void> {
     const PlayerData = this.getPlayerData(player);
+    console.log(PlayerData);
     if (PlayerRepositoriesImpl.PlayerModel != null) {
       try {
         await PlayerRepositoriesImpl.PlayerModel.create(PlayerData as any);
@@ -67,7 +68,6 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     if (PlayerRepositoriesImpl.PlayerModel != null) {
       resetPlayersList();
       const allPlayers = await PlayerRepositoriesImpl.PlayerModel.findAll();
-
       for (let i = 0; i < allPlayers.length; i++) {
         players.push(this.getPlayerClass(allPlayers[i]));
       }

@@ -12,9 +12,8 @@ class Player {
     totalPlays: number = 0,
     totalWins: number = 0,
     creationDate?: Date | undefined,
-    id_?: number 
+    id_?: number
   ) {
-    this.id = Player.id_ + 1;
     this.name = name;
     this.totalPlays = totalPlays;
     this.totalWins = totalWins;
@@ -24,7 +23,7 @@ class Player {
       Player.id_ = id_;
     }
 
-    this.id = Player.id_ +1;
+    this.id = ++Player.id_;
   }
 
   getId(): number {

@@ -6,15 +6,18 @@ import { PlayerRepositoriesImpl } from '../../infrastructure/repositories/Player
 const PlayerRepositories = new PlayerRepositoriesImpl();
 
 export const createPlayer = (req: Request, res: Response) => {
-  PlayerRepositories.findAllPlayers().then(() => {
+  PlayerRepositories.findAllPlayers().then(async () => {
     // let name: string = req.body.name;
-    // const { name } = req.body;
-    let name = 'Ami';
-    console.log('-------------------------------->' + name);
+    console.log('00000000');
+    console.log(req);
+    const { name } = req.body;
+    // let name = 'Ami';
+
+    console.log('----------->' + name);
     let newPlayer = new Player(name);
     try {
-      let createdPlayer = PlayerRepositories.createPlayer(newPlayer);
-      res.json(createdPlayer);
+      await PlayerRepositories.createPlayer(newPlayer);
+      res.json(newPlayer);
     } catch (error) {
       res.status(500).json('Unable to store the new player');
     }
@@ -43,6 +46,7 @@ export const createPlayer = (req: Request, res: Response) => {
 export const getAllPlayers = (req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers()
     .then((playersFound) => {
+      console.log(playersFound);
       // const playerId: number = Number(req.params.id);
       const jsonData: object[] = [];
       if (playersFound != null) {
@@ -56,8 +60,4 @@ export const getAllPlayers = (req: Request, res: Response) => {
       console.error('Error while retrieving data:', error);
       res.status(500).json({ error: 'Internal server error' });
     });
-};
-
-export const sayHi = (_req: Request, res: Response) => {
-  res.send('<h1>Hello Players</h1>');
 };

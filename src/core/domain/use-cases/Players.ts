@@ -32,8 +32,8 @@ export function playerToJSON(player: Player): object {
   return {
     id: player.getId(),
     name: player.getName(),
-    totalPlays: player.getTotalPlays(),
-    totalWins: player.getTotalWins(),
-    creationDate: player.getCreationDate()
+    total_Plays: player.getTotalPlays(),
+    total_Wins: player.getTotalWins(),
+    createdAt: player.getCreationDate()
   };
 }
