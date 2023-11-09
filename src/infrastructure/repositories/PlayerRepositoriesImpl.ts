@@ -40,7 +40,6 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
 
   async createPlayer(player: Player): Promise<void> {
     const PlayerData = this.getPlayerData(player);
-
     if (PlayerRepositoriesImpl.PlayerModel != null) {
       try {
         await PlayerRepositoriesImpl.PlayerModel.create(PlayerData as any);

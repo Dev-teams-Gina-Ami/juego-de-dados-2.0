@@ -28,7 +28,7 @@ export function resetPlayersList() {
   players = [];
 }
 
-export function playerToJSON(player: Player): Object {
+export function playerToJSON(player: Player): object {
   return {
     id: player.getId(),
     name: player.getName(),
