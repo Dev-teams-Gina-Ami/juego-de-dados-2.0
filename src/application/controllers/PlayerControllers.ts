@@ -8,8 +8,9 @@ const PlayerRepositories = new PlayerRepositoriesImpl();
 export const createPlayer = (req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers().then(async () => {
     // let name: string = req.body.name;
-    console.log('00000000');
     console.log(req);
+    console.log('00000000');
+    console.log(req.body);
     const { name } = req.body;
     // let name = 'Ami';
 
