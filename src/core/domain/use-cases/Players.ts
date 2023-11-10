@@ -30,10 +30,11 @@ export function resetPlayersList() {
 
 export function playerToJSON(player: Player): object {
   return {
-    id: player.getId(),
     name: player.getName(),
     total_Plays: player.getTotalPlays(),
     total_Wins: player.getTotalWins(),
-    createdAt: player.getCreationDate()
+    win_rate: player.getWinRate(),
+    createdAt: player.getCreationDate(),
+    id: player.getId()
   };
 }

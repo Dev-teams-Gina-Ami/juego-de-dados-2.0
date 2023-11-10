@@ -11,8 +11,8 @@ export const createPlayer = (req: Request, res: Response) => {
     console.log(req);
     console.log('00000000');
     console.log(req.body);
-    const { name } = req.body;
-    // let name = 'Ami';
+    // const { name } = req.body;
+    let name = 'Ami';
 
     console.log('----------->' + name);
     let newPlayer = new Player(name);
@@ -25,26 +25,36 @@ export const createPlayer = (req: Request, res: Response) => {
   });
 };
 
-// export const updatePlayer = async (req: Request, res: Response) => {
-//   //let playerId: number = Number(req.params.id);
-//   const { id } = req.params;
-//   const newInfo = req.body;
+export const updatePlayer = (req: Request, res: Response) => {
+  PlayerRepositories.findAllPlayers().then(async () => {
+    let playerId: number = Number(req.params.id);
+  
+    // const newName = req.body;
+    const newName: string = 'Val'
+    const playerToUpdate = await PlayerRepositories.findPlayerById(playerId)
+    console.log(playerToUpdate)
+    if ( playerToUpdate != null) {
+      // let playerMaped = PlayerRepositories.getPlayerData(playerToUpdate)
+      // console.log(playerMaped)
+      // playerMaped.name = newName;
+      // console.log(playerMaped)
+      const playerWithNewName = PlayerRepositories.getPlayerClass(playerToUpdate)
+      console.log(playerWithNewName)
+      playerWithNewName.setName(newName)
+      console.log(playerWithNewName)
+      try {
+        await PlayerRepositories.updatePlayer(playerWithNewName)
+        res.status(200)
+      } catch (error) {
+        console.error('Error while retrieving data:', error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+    }
+    return null;
+})
+};
 
-//   const newPlayerInfo = {
-//       name: newInfo.name,
-//       totalPlays: newInfo.total_plays,
-//       totalWins: newInfo.total_wins
-//     };
-
-//     try {
-//       const updatePlayer = await Player.findByIdAndUpdate??
-//     } catch (error) {
-//       console.error('Error while retrieving data:', error);
-//       res.status(500).json({ error: 'Internal server error' });
-//     }
-// };
-
-export const getAllPlayers = (req: Request, res: Response) => {
+export const getAllPlayers = (_req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers()
     .then((playersFound) => {
       console.log(playersFound);
@@ -61,4 +71,18 @@ export const getAllPlayers = (req: Request, res: Response) => {
       console.error('Error while retrieving data:', error);
       res.status(500).json({ error: 'Internal server error' });
     });
+};
+
+export const deleteAllPlayers = (_req: Request, res: Response) => {
+  PlayerRepositories.findAllPlayers().then(() => {
+    try {
+      for (let i = 0; i < players.length; i++) {
+        PlayerRepositories.deletePlayer(i + 1)
+      }
+      res.status(204).json('Players borrados');
+    } catch (error) {
+      res.status(500).json('Error al intentar borrar los players');
+      console.log(error);
+    }
+  })
 };

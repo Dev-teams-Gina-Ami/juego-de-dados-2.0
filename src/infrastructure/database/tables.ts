@@ -81,6 +81,10 @@ export function createPlayerModel(sequelize: Sequelize): ModelStatic<Model> {
       total_wins: {
         type: DataTypes.INTEGER,
         allowNull: false
+      },
+      win_rate: {
+        type: DataTypes.TINYINT,
+        allowNull: false
       }
     },
     {

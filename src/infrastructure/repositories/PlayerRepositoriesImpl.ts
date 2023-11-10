@@ -12,8 +12,10 @@ interface PlayerMap {
   name: string;
   total_plays: number;
   total_wins: number;
+  win_rate: number;
+  createdAt: Date | undefined;
 }
-
+1
 export class PlayerRepositoriesImpl implements PlayerRepository {
   static PlayerModel: any;
 
@@ -22,17 +24,21 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
       id_player: player.getId(),
       name: player.getName(),
       total_plays: player.getTotalPlays() || 0, //valor por defecto por si no hay valor
-      total_wins: player.getTotalWins() || 0 //valor por defecto por si no hay valor
+      total_wins: player.getTotalWins() || 0, //valor por defecto por si no hay valor
+      createdAt: player.getCreationDate(),
+      win_rate: player.getWinRate()
     };
   }
 
   getPlayerClass(playerData: any) {
-    let id = playerData.dataValues.id_player;
+    let id = Number(playerData.dataValues.id_player);
     let name = playerData.dataValues.name;
     let totalPlays = playerData.dataValues.total_plays;
     let totalWins = playerData.dataValues.total_wins;
+    let createdAt = playerData.dataValues.createdAt;
+    let winRate = playerData.dataValues.win_rate;
 
-    let playerInstance = new Player(name, totalPlays, totalWins);
+    let playerInstance = new Player(name, totalPlays, totalWins, winRate, createdAt);
     playerInstance.setId(id);
 
     return playerInstance;

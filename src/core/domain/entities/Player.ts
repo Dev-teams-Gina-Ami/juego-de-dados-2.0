@@ -3,20 +3,23 @@ class Player {
   private name: string;
   private totalPlays: number;
   private totalWins: number;
+  private winRate: number;
   private creationDate: Date | undefined;
 
   private static id_: number = 0;
 
   constructor(
     name: string,
-    totalPlays: number = 0,
-    totalWins: number = 0,
+    totalPlays: number = 86,
+    totalWins: number = 13,
+    winRate: number = 0,
     creationDate?: Date | undefined,
     id_?: number
   ) {
     this.name = name;
     this.totalPlays = totalPlays;
     this.totalWins = totalWins;
+    this.winRate = winRate;
     this.creationDate = creationDate;
 
     if (typeof id_ === 'number') {
@@ -42,6 +45,10 @@ class Player {
     return this.totalWins;
   }
 
+  getWinRate(): number {
+    return this.winRate = (this.totalWins / this.totalPlays) * 100;
+  }
+
   getCreationDate(): Date | undefined {
     return this.creationDate;
   }
@@ -60,6 +67,10 @@ class Player {
 
   setTotalWins(newTotalWins: number): void {
     this.totalWins = newTotalWins;
+  }
+
+  setWinRate(newWinRate: number): void {
+    this.winRate = newWinRate;
   }
 
   setCreationDate(newCreationDate: Date): void {
