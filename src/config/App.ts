@@ -10,7 +10,7 @@ dotenv.config();
 
 databaseConfiguration().then(() => {
   app.listen(process.env.PORT, () => {
-    console.log('Servidor funcionando en http://localhost:3000');
+    console.log(`Servidor funcionando en 127.0.0.1:${process.env.PORT}`);
     GameRepositoriesImpl.GameModel = databaseInfo.gameModel;
   });
 });
