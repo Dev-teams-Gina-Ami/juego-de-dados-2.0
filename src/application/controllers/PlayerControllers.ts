@@ -7,14 +7,7 @@ const PlayerRepositories = new PlayerRepositoriesImpl();
 
 export const createPlayer = (req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers().then(async () => {
-    // let name: string = req.body.name;
-    console.log(req);
-    console.log('00000000');
-    console.log(req.body);
-    // const { name } = req.body;
-    let name = 'Ami';
-
-    console.log('----------->' + name);
+    let name: string = req.body.name;
     let newPlayer = new Player(name);
     try {
       await PlayerRepositories.createPlayer(newPlayer);
@@ -25,34 +18,28 @@ export const createPlayer = (req: Request, res: Response) => {
   });
 };
 
-export const updatePlayer = (req: Request, res: Response) => {
-  PlayerRepositories.findAllPlayers().then(async () => {
-    let playerId: number = Number(req.params.id);
-  
-    // const newName = req.body;
-    const newName: string = 'Val'
-    const playerToUpdate = await PlayerRepositories.findPlayerById(playerId)
-    console.log(playerToUpdate)
-    if ( playerToUpdate != null) {
-      // let playerMaped = PlayerRepositories.getPlayerData(playerToUpdate)
-      // console.log(playerMaped)
-      // playerMaped.name = newName;
-      // console.log(playerMaped)
-      const playerWithNewName = PlayerRepositories.getPlayerClass(playerToUpdate)
-      console.log(playerWithNewName)
-      playerWithNewName.setName(newName)
-      console.log(playerWithNewName)
-      try {
-        await PlayerRepositories.updatePlayer(playerWithNewName)
-        res.status(200)
-      } catch (error) {
-        console.error('Error while retrieving data:', error);
-        res.status(500).json({ error: 'Internal server error' });
-      }
+export const updatePlayer = async (req: Request, res: Response) => {
+  try {
+    await PlayerRepositories.findAllPlayers();
+    const playerId: number = Number(req.params.id);
+    const newName: string = req.body.name;
+
+    const playerToUpdate = await PlayerRepositories.findPlayerById(playerId);
+
+    if (playerToUpdate) {
+      playerToUpdate.setName(newName);
+      await PlayerRepositories.updatePlayer(playerToUpdate);
+
+      res.status(200).send("Player updated successfully");
+    } else {
+      res.status(404).json({ error: 'Player not found' });
     }
-    return null;
-})
-};
+  } catch (error) {
+    console.error('Error while updating player:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
 
 export const getAllPlayers = (_req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers()

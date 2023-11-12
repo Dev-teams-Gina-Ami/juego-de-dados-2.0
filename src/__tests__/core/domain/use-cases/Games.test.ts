@@ -1,11 +1,19 @@
-import { createGame, getLastGame, getLastId, resetGamesList, gametoJSON, games } from '../../../../core/domain/use-cases/Games'; // Replace 'yourModuleName' with the actual module path
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  createGame,
+  getLastGame,
+  getLastId,
+  resetGamesList,
+  gametoJSON,
+  games
+} from '../../../../core/domain/use-cases/Games';
 import Game from '../../../../core/domain/entities/Game';
 
 describe('Funciones de uso de la clase Game', () => {
   let game: Game;
 
   beforeEach(() => {
-    resetGamesList(); 
+    resetGamesList();
     game = new Game(1);
   });
 
@@ -13,7 +21,7 @@ describe('Funciones de uso de la clase Game', () => {
     createGame(1, 6);
     expect(getLastGame()).toBeInstanceOf(Game);
 
-    createGame(2); 
+    createGame(2);
     expect(getLastGame()).toBeInstanceOf(Game);
   });
 

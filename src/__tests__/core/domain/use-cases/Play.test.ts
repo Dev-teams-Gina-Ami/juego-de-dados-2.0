@@ -1,6 +1,6 @@
-import { roll, winOrLose, doBothRolls, playMatch } from '../../../../core/domain/use-cases/Play'; // Replace 'yourModuleName' with the actual module path
-import Game from '../../../../core/domain/entities/Game';
+import { roll, winOrLose, doBothRolls, playMatch } from '../../../../core/domain/use-cases/Play';
 import Player from '../../../../core/domain/entities/Player';
+import Game from '../../../../core/domain/entities/Game';
 
 describe('Funciones del juego', () => {
   let player: Player;

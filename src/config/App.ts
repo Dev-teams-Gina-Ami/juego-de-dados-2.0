@@ -20,5 +20,6 @@ databaseConfiguration().then(() => {
   });
 });
 
+app.use(express.json());
 app.use('/api/players', playerRouter);
 app.use('/api/games', gameRouter);

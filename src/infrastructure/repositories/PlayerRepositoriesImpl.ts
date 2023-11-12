@@ -15,7 +15,7 @@ interface PlayerMap {
   win_rate: number;
   createdAt: Date | undefined;
 }
-1
+
 export class PlayerRepositoriesImpl implements PlayerRepository {
   static PlayerModel: any;
 
@@ -90,7 +90,7 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     if (PlayerRepositoriesImpl.PlayerModel != null) {
       try {
         await PlayerRepositoriesImpl.PlayerModel.update(player, {
-          where: { id_game: player.getId() }
+          where: { id_player: player.getId() }
         });
       } catch (error) {
         console.error('Error updating player', error);
