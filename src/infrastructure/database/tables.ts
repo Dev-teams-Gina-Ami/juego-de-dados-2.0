@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { DataTypes, Model, ModelStatic, Sequelize } from 'sequelize';
 
 export function createGameModel(sequelize: Sequelize): ModelStatic<Model> {
@@ -79,6 +80,10 @@ export function createPlayerModel(sequelize: Sequelize): ModelStatic<Model> {
       },
       total_wins: {
         type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      win_rate: {
+        type: DataTypes.TINYINT,
         allowNull: false
       }
     },

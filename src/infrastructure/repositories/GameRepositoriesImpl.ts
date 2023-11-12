@@ -1,6 +1,10 @@
-import { GameRepository } from "../../core/repositories/GameRepositories";
-import Game from "../../core/domain/entities/Game"
-import { games, getLastId, resetGamesList } from "../../core/domain/use-cases/Games";
+import { GameRepository } from '../../core/repositories/GameRepositories';
+import Game from '../../core/domain/entities/Game';
+import {
+  games,
+  getLastId,
+  resetGamesList
+} from '../../core/domain/use-cases/Games';
 
 interface GameMap {
   id_game: number;
@@ -12,7 +16,6 @@ interface GameMap {
 }
 
 export class GameRepositoriesImpl implements GameRepository {
-
   static GameModel: any;
 
   getGameData(game: Game): GameMap {
@@ -57,32 +60,32 @@ export class GameRepositoriesImpl implements GameRepository {
     }
   }
 
-  async findById(id: number): Promise<Game | null>{
-      if(GameRepositoriesImpl.GameModel != null){
-          try{
-              const foundGame = await GameRepositoriesImpl.GameModel.findByPk(id);;
-              return this.getGameClass(foundGame);
-          } catch (error) {
-              console.error('Error finding game by ID:', error);
-              return null;
-          }
+  async findById(id: number): Promise<Game | null> {
+    if (GameRepositoriesImpl.GameModel != null) {
+      try {
+        const foundGame = await GameRepositoriesImpl.GameModel.findByPk(id);
+        return this.getGameClass(foundGame);
+      } catch (error) {
+        console.error('Error finding game by ID:', error);
+        return null;
       }
+    }
     return null;
   }
-    
-  async findAll(): Promise<Game[] | null> {
-      if(GameRepositoriesImpl.GameModel != null){
-          resetGamesList();
-          const allGames = await GameRepositoriesImpl.GameModel.findAll();
-          console.log(allGames);
-          for(let i=0; i < allGames.length; i++){
-              games.push(this.getGameClass(allGames[i]));
-          }
 
-          Game.setIdCounter(getLastId());
-          console.log(games);
-          return games;
+  async findAll(): Promise<Game[] | null> {
+    if (GameRepositoriesImpl.GameModel != null) {
+      resetGamesList();
+      const allGames = await GameRepositoriesImpl.GameModel.findAll();
+      console.log(allGames);
+      for (let i = 0; i < allGames.length; i++) {
+        games.push(this.getGameClass(allGames[i]));
       }
+
+      Game.setIdCounter(getLastId());
+      console.log(games);
+      return games;
+    }
     console.log(games);
     return null;
   }

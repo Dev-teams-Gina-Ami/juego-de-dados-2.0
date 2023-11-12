@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Model, ModelStatic, Sequelize } from 'sequelize';
 import { createGameModel, createPlayerModel } from './tables';
 
@@ -21,6 +22,7 @@ async function createDatabaseAndConnect(): Promise<Sequelize | null> {
 
   try {
     await sequelizeWithoutDB.query(
+      // `DROP DATABASE ${databaseName}` // usar esta linea si hace falta resetear la DB durante el desarrollo
       `CREATE DATABASE IF NOT EXISTS ${databaseName}`
     );
     console.log(
