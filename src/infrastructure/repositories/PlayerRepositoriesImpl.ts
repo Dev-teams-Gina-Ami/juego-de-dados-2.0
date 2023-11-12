@@ -86,11 +86,20 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     return null;
   }
 
+  // await User.update({ lastName: "Doe" }, {
+  //   where: {
+  //     lastName: null
+  //   }
+  // });
+
   async updatePlayer(player: Player) {
+    const PlayerData = this.getPlayerData(player);
+    console.log(PlayerData);
     if (PlayerRepositoriesImpl.PlayerModel != null) {
       try {
+        await PlayerRepositoriesImpl.PlayerModel.create(PlayerData as any);
         await PlayerRepositoriesImpl.PlayerModel.update(player, {
-          where: { id_game: player.getId() }
+          where: { id_player: player.getId() }
         });
       } catch (error) {
         console.error('Error updating player', error);

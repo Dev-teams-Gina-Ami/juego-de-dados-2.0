@@ -7,14 +7,8 @@ const PlayerRepositories = new PlayerRepositoriesImpl();
 
 export const createPlayer = (req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers().then(async () => {
-    // let name: string = req.body.name;
-    console.log(req);
-    console.log('00000000');
-    console.log(req.body);
-    // const { name } = req.body;
-    let name = 'Ami';
-
-    console.log('----------->' + name);
+    let name: string = req.body.name;
+    
     let newPlayer = new Player(name);
     try {
       await PlayerRepositories.createPlayer(newPlayer);
@@ -29,8 +23,8 @@ export const updatePlayer = (req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers().then(async () => {
     let playerId: number = Number(req.params.id);
   
-    // const newName = req.body;
-    const newName: string = 'Val'
+    const newName = req.body.name;
+    console.log(playerId, newName)
     const playerToUpdate = await PlayerRepositories.findPlayerById(playerId)
     console.log(playerToUpdate)
     if ( playerToUpdate != null) {

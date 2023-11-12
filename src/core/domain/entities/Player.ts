@@ -1,5 +1,5 @@
 class Player {
-  private id: number;
+  private id_player: number;
   private name: string;
   private totalPlays: number;
   private totalWins: number;
@@ -10,8 +10,8 @@ class Player {
 
   constructor(
     name: string,
-    totalPlays: number = 86,
-    totalWins: number = 13,
+    totalPlays: number = 9,
+    totalWins: number = 5,
     winRate: number = 0,
     creationDate?: Date | undefined,
     id_?: number
@@ -26,11 +26,11 @@ class Player {
       Player.id_ = id_;
     }
 
-    this.id = ++Player.id_;
+    this.id_player = ++Player.id_;
   }
 
   getId(): number {
-    return this.id;
+    return this.id_player;
   }
 
   getName(): string {
@@ -54,7 +54,7 @@ class Player {
   }
 
   setId(newId: number): void {
-    this.id = newId;
+    this.id_player = newId;
   }
 
   setName(newName: string): void {
