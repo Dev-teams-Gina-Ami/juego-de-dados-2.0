@@ -51,7 +51,7 @@ export const updatePlayer = (req: Request, res: Response) => {
 export const getAllPlayers = (_req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers()
     .then((playersFound) => {
-      console.log(playersFound);
+      
       // const playerId: number = Number(req.params.id);
       const jsonData: object[] = [];
       if (playersFound != null) {

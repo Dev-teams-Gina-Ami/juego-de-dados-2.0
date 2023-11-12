@@ -10,8 +10,8 @@ class Player {
 
   constructor(
     name: string,
-    totalPlays: number = 9,
-    totalWins: number = 5,
+    totalPlays: number = 100,
+    totalWins: number = 46,
     winRate: number = 0,
     creationDate?: Date | undefined,
     id_?: number
