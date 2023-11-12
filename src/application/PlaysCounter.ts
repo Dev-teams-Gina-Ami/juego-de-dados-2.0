@@ -7,7 +7,7 @@ export class PlaysCounter {
     private readonly counter: IPlaysCounter
   ) {}
 
-  async exectue(playerId: string) {
+  async exectue(playerId: number) {
     const player = await this.playerRepository.findPlayerById(playerId);
 
     if (!player) {

@@ -10,6 +10,7 @@
       "plugin:@typescript-eslint/recommended",
       "prettier"  ],
     "rules": {
+      "prefer-const": 1, // Means warning
       "no-console": 1,       // Means warning
       "no-dupe-else-if": 1,  // Means warning
       "camelcase": 1,        // Means warning
