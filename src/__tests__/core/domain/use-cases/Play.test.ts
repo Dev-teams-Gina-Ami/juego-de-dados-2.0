@@ -1,4 +1,9 @@
-import { roll, winOrLose, doBothRolls, playMatch } from '../../../../core/domain/use-cases/Play';
+import {
+  roll,
+  winOrLose,
+  doBothRolls,
+  playMatch
+} from '../../../../core/domain/use-cases/Play';
 import Player from '../../../../core/domain/entities/Player';
 import Game from '../../../../core/domain/entities/Game';
 
@@ -19,7 +24,7 @@ describe('Funciones del juego', () => {
   });
 
   test('winOrLose debe actualizar game.hasWon', () => {
-    game.setDice1Value(1); 
+    game.setDice1Value(1);
     game.setDice2Value(2);
     game.setWinnerNumber(3);
 

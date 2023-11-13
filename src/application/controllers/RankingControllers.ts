@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Request, Response } from 'express';
 import { PlayerRepositoriesImpl } from '../../infrastructure/repositories/PlayerRepositoriesImpl';
 import { playerToJSON, players } from '../../core/domain/use-cases/Players';
@@ -8,8 +9,6 @@ const PlayerRepositories = new PlayerRepositoriesImpl();
 export const getRanking = (_req: Request, res: Response) => {
   PlayerRepositories.findAllAndSort()
     .then((playersFound) => {
-      console.log(playersFound);
-
       const jsonData: object[] = [];
       if (playersFound != null) {
         const GlobalWinrate = getGlobalWinrate(playersFound);

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Request, Response } from 'express';
 import Player from '../../core/domain/entities/Player';
 import { players, playerToJSON } from '../../core/domain/use-cases/Players';
@@ -10,19 +11,19 @@ export const createPlayer = (req: Request, res: Response) => {
     let name: string;
     let found: Player | undefined;
 
-    if(req.body.name != null){
+    if (req.body.name != null) {
       name = req.body.name;
-    }else{
+    } else {
       name = 'Anonim';
     }
-    
-    if(players != null){
+
+    if (players != null) {
       found = players.find((player) => player.getName() == name);
     }
 
-    if(found && found.getName() != 'Anonim'){
-      res.status(500).json("Name already exists");
-    }else{
+    if (found && found.getName() != 'Anonim') {
+      res.status(500).json('Name already exists');
+    } else {
       let newPlayer = new Player(name);
       try {
         await PlayerRepositories.createPlayer(newPlayer);

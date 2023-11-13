@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Request, Response } from 'express';
 import { playMatch } from '../../core/domain/use-cases/Play';
 import Player from '../../core/domain/entities/Player';
@@ -12,26 +13,32 @@ const PlayerRepositories = new PlayerRepositoriesImpl();
 export const doRoll = (req: Request, res: Response) => {
   GameRepositories.findAll().then(() => {
     const playerId: number = Number(req.params.id);
-    PlayerRepositories.findPlayerById(playerId).then((player) => {
-      let game: Game; 
-      if(player){
-        game = playMatch(player);
-        game.setPlayerId(playerId);
-        try {
-          GameRepositories.add(game);
-          //player.getWinRate();  
-          PlayerRepositories.updatePlayer(player);
-          res.status(201).json(`Roll done, dice1: ${game.getDice1Value()}, dice2: ${game.getDice2Value()}, win: ${game.getHasWon()}`);
-        } catch (error) {
-          console.log(error);
-          res.status(500).json('Unable to store de roll');
+    PlayerRepositories.findPlayerById(playerId)
+      .then((player) => {
+        let game: Game;
+        if (player) {
+          game = playMatch(player);
+          game.setPlayerId(playerId);
+          try {
+            GameRepositories.add(game);
+            //player.getWinRate();
+            PlayerRepositories.updatePlayer(player);
+            res
+              .status(201)
+              .json(
+                `Roll done, dice1: ${game.getDice1Value()}, dice2: ${game.getDice2Value()}, win: ${game.getHasWon()}`
+              );
+          } catch (error) {
+            console.log(error);
+            res.status(500).json('Unable to store de roll');
+          }
         }
-      }
-    }).catch((error) => {
-      console.error('Error:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    });   
-  }); 
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+      });
+  });
 };
 
 export const deleteRolls = (req: Request, res: Response) => {
@@ -57,7 +64,7 @@ export const getRolls = (req: Request, res: Response) => {
   GameRepositories.findAll()
     .then((gamesFound) => {
       const playerId: number = Number(req.params.id);
-      const jsonData: Object[] = [];
+      const jsonData: object[] = [];
       if (gamesFound != null) {
         for (let i = 0; i < gamesFound.length; i++) {
           if (playerId === gamesFound[i].getPlayerId()) {

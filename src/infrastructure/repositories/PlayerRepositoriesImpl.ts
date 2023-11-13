@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable camelcase */
 import { PlayerRepository } from '../../core/repositories/PlayerRepositories';
 import Player from '../../core/domain/entities/Player';
