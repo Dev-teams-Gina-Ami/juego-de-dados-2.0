@@ -19,8 +19,9 @@ export const doRoll = (req: Request, res: Response) => {
         game.setPlayerId(playerId);
         try {
           GameRepositories.add(game);
+          //player.getWinRate();  
           PlayerRepositories.updatePlayer(player);
-          res.status(201).json('Roll done');
+          res.status(201).json(`Roll done, dice1: ${game.getDice1Value()}, dice2: ${game.getDice2Value()}, win: ${game.getHasWon()}`);
         } catch (error) {
           console.log(error);
           res.status(500).json('Unable to store de roll');

@@ -6,14 +6,30 @@ import { PlayerRepositoriesImpl } from '../../infrastructure/repositories/Player
 const PlayerRepositories = new PlayerRepositoriesImpl();
 
 export const createPlayer = (req: Request, res: Response) => {
-  PlayerRepositories.findAllPlayers().then(async () => {
-    let name: string = req.body.name;
-    let newPlayer = new Player(name);
-    try {
-      await PlayerRepositories.createPlayer(newPlayer);
-      res.json(newPlayer);
-    } catch (error) {
-      res.status(500).json('Unable to store the new player');
+  PlayerRepositories.findAllPlayers().then(async (players: Player[] | null) => {
+    let name: string;
+    let found: Player | undefined;
+
+    if(req.body.name != null){
+      name = req.body.name;
+    }else{
+      name = 'Anonim';
+    }
+    
+    if(players != null){
+      found = players.find((player) => player.getName() == name);
+    }
+
+    if(found && found.getName() != 'Anonim'){
+      res.status(500).json("Name already exists");
+    }else{
+      let newPlayer = new Player(name);
+      try {
+        await PlayerRepositories.createPlayer(newPlayer);
+        res.json(newPlayer);
+      } catch (error) {
+        res.status(500).json('Unable to store the new player');
+      }
     }
   });
 };
