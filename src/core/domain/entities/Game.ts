@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 class Game {
   private id: number;
   private playerId: number;
@@ -26,7 +27,7 @@ class Game {
       Game.id_ = id_;
     }
 
-    this.id = Game.id_ + 1;
+    this.id = ++Game.id_;
   }
 
   setId(id: number): void {

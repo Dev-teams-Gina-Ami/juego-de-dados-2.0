@@ -1,33 +1,65 @@
-// import { roll, winOrLose } from '../../../../core/domain/use-cases/Play';
+import { roll, winOrLose, doBothRolls, playMatch } from '../../../../core/domain/use-cases/Play';
+import Player from '../../../../core/domain/entities/Player';
+import Game from '../../../../core/domain/entities/Game';
 
-// describe('Tirada de dados', () => {
-//   it('Tiene que generar un numero random dentro del rango especificado', () => {
-//     const dice = { sides: 6 };
-//     const result = roll(dice);
+describe('Funciones del juego', () => {
+  let player: Player;
+  let game: Game;
 
-//     expect(result).toBeGreaterThanOrEqual(1);
-//     expect(result).toBeLessThanOrEqual(dice.sides);
-//   });
-// });
+  beforeEach(() => {
+    player = new Player('testPlayer');
+    game = new Game(player.getId());
+  });
 
-// describe('funcion winOrLose', () => {
-//   it('Debe ser true si la suma de las tiradas es equivalente al numero ganador', () => {
-//     const winnerNumber = 7;
-//     const roll1 = 3;
-//     const roll2 = 4;
+  test('La funcion de roll debe devolver un numero valido', () => {
+    const dice = { sides: 6 };
+    const result = roll(dice);
+    expect(result).toBeGreaterThanOrEqual(1);
+    expect(result).toBeLessThanOrEqual(6);
+  });
 
-//     const result = winOrLose(roll1, roll2, winnerNumber);
+  test('winOrLose debe actualizar game.hasWon', () => {
+    game.setDice1Value(1); 
+    game.setDice2Value(2);
+    game.setWinnerNumber(3);
 
-//     expect(result).toBe(true);
-//   });
+    winOrLose(game);
 
-//   it('Debe ser false si la suma de las tiradas no es equivalente al numero ganador', () => {
-//     const winnerNumber = 7;
-//     const roll1 = 2;
-//     const roll2 = 6;
+    expect(game.getHasWon()).toBe(true);
 
-//     const result = winOrLose(roll1, roll2, winnerNumber);
+    game.setDice1Value(1);
+    game.setDice2Value(2);
+    game.setWinnerNumber(4);
 
-//     expect(result).toBe(false);
-//   });
-// });
+    winOrLose(game);
+
+    expect(game.getHasWon()).toBe(false);
+  });
+
+  test('doBothRolls debe actualizar los valores de los rolls dentro del rango', () => {
+    doBothRolls(game);
+    const dice1Value = game.getDice1Value();
+    const dice2Value = game.getDice2Value();
+    expect(dice1Value).toBeGreaterThanOrEqual(1);
+    expect(dice1Value).toBeLessThanOrEqual(6);
+    expect(dice2Value).toBeGreaterThanOrEqual(1);
+    expect(dice2Value).toBeLessThanOrEqual(6);
+  });
+
+  test('playMatch debe actualizar los stats del Player y devolver el objeto Game', () => {
+    const initialTotalPlays = player.getTotalPlays();
+    const initialTotalWins = player.getTotalWins();
+
+    const result = playMatch(player);
+
+    expect(player.getTotalPlays()).toBe(initialTotalPlays + 1);
+
+    if (result.getHasWon()) {
+      expect(player.getTotalWins()).toBe(initialTotalWins + 1);
+    } else {
+      expect(player.getTotalWins()).toBe(initialTotalWins);
+    }
+
+    expect(result instanceof Game).toBe(true);
+  });
+});

@@ -15,7 +15,7 @@ interface PlayerMap {
   win_rate: number;
   createdAt: Date | undefined;
 }
-1;
+
 export class PlayerRepositoriesImpl implements PlayerRepository {
   static PlayerModel: any;
 
@@ -38,13 +38,7 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     let createdAt = playerData.dataValues.createdAt;
     let winRate = playerData.dataValues.win_rate;
 
-    let playerInstance = new Player(
-      name,
-      totalPlays,
-      totalWins,
-      winRate,
-      createdAt
-    );
+    let playerInstance = new Player(name, totalPlays, totalWins, winRate, createdAt);
     playerInstance.setId(id);
 
     return playerInstance;
@@ -92,30 +86,9 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     return null;
   }
 
-  async findAllAndSort(): Promise<Player[] | null> {
-    if (PlayerRepositoriesImpl.PlayerModel != null) {
-      resetPlayersList();
-      const allPlayers = await PlayerRepositoriesImpl.PlayerModel.findAll({
-        order: [['win_rate', 'DESC']]
-      });
-      for (let i = 0; i < allPlayers.length; i++) {
-        players.push(this.getPlayerClass(allPlayers[i]));
-      }
-
-      // Player.setIdCounter(getLastId());
-
-      return players;
-    }
-
-    return null;
-  }
-
   async updatePlayer(player: Player) {
-    const PlayerData = this.getPlayerData(player);
-    console.log(PlayerData);
     if (PlayerRepositoriesImpl.PlayerModel != null) {
       try {
-        await PlayerRepositoriesImpl.PlayerModel.create(PlayerData as any);
         await PlayerRepositoriesImpl.PlayerModel.update(player, {
           where: { id_player: player.getId() }
         });
@@ -131,33 +104,5 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
         where: { id_player: id }
       });
     }
-  }
-
-  async findWinner(): Promise<Player | null> {
-    if (PlayerRepositoriesImpl.PlayerModel != null) {
-      resetPlayersList();
-      const winner = await PlayerRepositoriesImpl.PlayerModel.findAll({
-        order: [['win_rate', 'DESC']],
-        limit: 1
-      });
-
-      // Player.setIdCounter(getLastId());
-      return winner;
-    }
-    return null;
-  }
-
-  async findLoser(): Promise<Player | null> {
-    if (PlayerRepositoriesImpl.PlayerModel != null) {
-      resetPlayersList();
-      const loser = await PlayerRepositoriesImpl.PlayerModel.findAll({
-        order: [['win_rate', 'ASC']],
-        limit: 1
-      });
-
-      // Player.setIdCounter(getLastId());
-      return loser;
-    }
-    return null;
   }
 }
