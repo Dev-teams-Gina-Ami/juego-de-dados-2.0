@@ -24,7 +24,7 @@ export const createPlayer = (req: Request, res: Response) => {
     if (found && found.getName() != 'Anonim') {
       res.status(500).json('Name already exists');
     } else {
-      let newPlayer = new Player(name);
+      const newPlayer = new Player(name);
       try {
         await PlayerRepositories.createPlayer(newPlayer);
         res.json(newPlayer);

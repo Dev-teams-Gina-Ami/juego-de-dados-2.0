@@ -31,14 +31,14 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     };
   }
   getPlayerClass(playerData: any) {
-    let id = Number(playerData.dataValues.id_player);
-    let name = playerData.dataValues.name;
-    let totalPlays = playerData.dataValues.total_plays;
-    let totalWins = playerData.dataValues.total_wins;
-    let createdAt = playerData.dataValues.createdAt;
-    let winRate = playerData.dataValues.win_rate;
+    const id = Number(playerData.dataValues.id_player);
+    const name = playerData.dataValues.name;
+    const totalPlays = playerData.dataValues.total_plays;
+    const totalWins = playerData.dataValues.total_wins;
+    const createdAt = playerData.dataValues.createdAt;
+    const winRate = playerData.dataValues.win_rate;
 
-    let playerInstance = new Player(
+    const playerInstance = new Player(
       name,
       totalPlays,
       totalWins,
