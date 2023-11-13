@@ -13,7 +13,7 @@ export const getRanking = (_req: Request, res: Response) => {
       const jsonData: object[] = [];
       if (playersFound != null) {
         const GlobalWinrate = getGlobalWinrate(playersFound);
-        console.log(`The Global Winrate is: ${GlobalWinrate}`); //console log temporal, habría que pasarlo a la Response
+        jsonData.push({ 'Global Winrate': GlobalWinrate });
         for (let i = 0; i < players.length; i++) {
           jsonData.push(playerToJSON(players[i]));
         }

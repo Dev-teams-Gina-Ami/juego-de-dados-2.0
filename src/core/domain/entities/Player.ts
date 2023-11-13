@@ -72,10 +72,6 @@ class Player {
     this.totalWins = newTotalWins;
   }
 
-  setWinRate(newWinRate: number): void {
-    this.winRate = newWinRate;
-  }
-
   setCreationDate(newCreationDate: Date): void {
     this.creationDate = newCreationDate;
   }
