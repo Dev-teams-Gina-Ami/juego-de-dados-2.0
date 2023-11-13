@@ -50,7 +50,7 @@ export const deleteRolls = (req: Request, res: Response) => {
           GameRepositories.update(games[i]);
         }
       }
-      res.status(204).json('Rolls borrados');
+      res.status(200).json('Rolls borrados');
     } catch (error) {
       res.status(500).json('Error al intentar borrar los rolls');
       console.log(error);

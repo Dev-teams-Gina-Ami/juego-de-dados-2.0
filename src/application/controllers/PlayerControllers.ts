@@ -22,7 +22,7 @@ export const createPlayer = (req: Request, res: Response) => {
     }
 
     if (found && found.getName() != 'Anonim') {
-      res.status(500).json('Name already exists');
+      res.status(400).json('Name already exists');
     } else {
       const newPlayer = new Player(name);
       try {
@@ -49,7 +49,7 @@ export const updatePlayer = async (req: Request, res: Response) => {
     }
 
     if (found) {
-      res.status(500).json('Name already exists');
+      res.status(400).json('Name already exists');
     } else {
       if (playerToUpdate) {
         playerToUpdate.setName(newName);
