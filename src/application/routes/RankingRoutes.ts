@@ -1,5 +1,9 @@
 import * as express from 'express';
-import { getRanking, getLoser, getWinner } from '../controllers/RankingControllers';
+import {
+  getRanking,
+  getLoser,
+  getWinner
+} from '../controllers/RankingControllers';
 
 export const rankingRouter = express.Router();
 

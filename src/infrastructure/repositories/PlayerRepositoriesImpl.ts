@@ -15,7 +15,7 @@ interface PlayerMap {
   win_rate: number;
   createdAt: Date | undefined;
 }
-1
+1;
 export class PlayerRepositoriesImpl implements PlayerRepository {
   static PlayerModel: any;
 
@@ -38,7 +38,13 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
     let createdAt = playerData.dataValues.createdAt;
     let winRate = playerData.dataValues.win_rate;
 
-    let playerInstance = new Player(name, totalPlays, totalWins, winRate, createdAt);
+    let playerInstance = new Player(
+      name,
+      totalPlays,
+      totalWins,
+      winRate,
+      createdAt
+    );
     playerInstance.setId(id);
 
     return playerInstance;
@@ -89,8 +95,9 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
   async findAllAndSort(): Promise<Player[] | null> {
     if (PlayerRepositoriesImpl.PlayerModel != null) {
       resetPlayersList();
-      const allPlayers = await PlayerRepositoriesImpl.PlayerModel
-      .findAll({order: [['win_rate', 'DESC']]});
+      const allPlayers = await PlayerRepositoriesImpl.PlayerModel.findAll({
+        order: [['win_rate', 'DESC']]
+      });
       for (let i = 0; i < allPlayers.length; i++) {
         players.push(this.getPlayerClass(allPlayers[i]));
       }
@@ -129,8 +136,10 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
   async findWinner(): Promise<Player | null> {
     if (PlayerRepositoriesImpl.PlayerModel != null) {
       resetPlayersList();
-      const winner = await PlayerRepositoriesImpl.PlayerModel
-      .findAll({order: [['win_rate', 'DESC']], limit: 1});
+      const winner = await PlayerRepositoriesImpl.PlayerModel.findAll({
+        order: [['win_rate', 'DESC']],
+        limit: 1
+      });
 
       // Player.setIdCounter(getLastId());
       return winner;
@@ -141,8 +150,10 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
   async findLoser(): Promise<Player | null> {
     if (PlayerRepositoriesImpl.PlayerModel != null) {
       resetPlayersList();
-      const loser = await PlayerRepositoriesImpl.PlayerModel
-      .findAll({order: [['win_rate', 'ASC']], limit: 1});
+      const loser = await PlayerRepositoriesImpl.PlayerModel.findAll({
+        order: [['win_rate', 'ASC']],
+        limit: 1
+      });
 
       // Player.setIdCounter(getLastId());
       return loser;

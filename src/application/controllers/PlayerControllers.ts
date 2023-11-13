@@ -8,7 +8,7 @@ const PlayerRepositories = new PlayerRepositoriesImpl();
 export const createPlayer = (req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers().then(async () => {
     let name: string = req.body.name;
-    
+
     let newPlayer = new Player(name);
     try {
       await PlayerRepositories.createPlayer(newPlayer);
@@ -22,36 +22,36 @@ export const createPlayer = (req: Request, res: Response) => {
 export const updatePlayer = (req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers().then(async () => {
     let playerId: number = Number(req.params.id);
-  
+
     const newName = req.body.name;
-    console.log(playerId, newName)
-    const playerToUpdate = await PlayerRepositories.findPlayerById(playerId)
-    console.log(playerToUpdate)
-    if ( playerToUpdate != null) {
+    console.log(playerId, newName);
+    const playerToUpdate = await PlayerRepositories.findPlayerById(playerId);
+    console.log(playerToUpdate);
+    if (playerToUpdate != null) {
       // let playerMaped = PlayerRepositories.getPlayerData(playerToUpdate)
       // console.log(playerMaped)
       // playerMaped.name = newName;
       // console.log(playerMaped)
-      const playerWithNewName = PlayerRepositories.getPlayerClass(playerToUpdate)
-      console.log(playerWithNewName)
-      playerWithNewName.setName(newName)
-      console.log(playerWithNewName)
+      const playerWithNewName =
+        PlayerRepositories.getPlayerClass(playerToUpdate);
+      console.log(playerWithNewName);
+      playerWithNewName.setName(newName);
+      console.log(playerWithNewName);
       try {
-        await PlayerRepositories.updatePlayer(playerWithNewName)
-        res.status(200)
+        await PlayerRepositories.updatePlayer(playerWithNewName);
+        res.status(200);
       } catch (error) {
         console.error('Error while retrieving data:', error);
         res.status(500).json({ error: 'Internal server error' });
       }
     }
     return null;
-})
+  });
 };
 
 export const getAllPlayers = (_req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers()
     .then((playersFound) => {
-      
       // const playerId: number = Number(req.params.id);
       const jsonData: object[] = [];
       if (playersFound != null) {
@@ -71,12 +71,12 @@ export const deleteAllPlayers = (_req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers().then(() => {
     try {
       for (let i = 0; i < players.length; i++) {
-        PlayerRepositories.deletePlayer(i + 1)
+        PlayerRepositories.deletePlayer(i + 1);
       }
       res.status(204).json('Players borrados');
     } catch (error) {
       res.status(500).json('Error al intentar borrar los players');
       console.log(error);
     }
-  })
+  });
 };
