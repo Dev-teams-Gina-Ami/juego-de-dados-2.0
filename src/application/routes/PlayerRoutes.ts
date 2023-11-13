@@ -11,4 +11,4 @@ export const playerRouter = express.Router();
 playerRouter.post('/', createPlayer);
 playerRouter.put('/:id', updatePlayer);
 playerRouter.get('/', getAllPlayers);
-playerRouter.delete('/delete', deleteAllPlayers); 
+playerRouter.delete('/delete', deleteAllPlayers);

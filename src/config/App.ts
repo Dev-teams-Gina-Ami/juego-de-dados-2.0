@@ -8,6 +8,7 @@ import { gameRouter } from '../application/routes/GameRoutes';
 import { GameRepositoriesImpl } from '../infrastructure/repositories/GameRepositoriesImpl';
 import { playerRouter } from '../application/routes/PlayerRoutes';
 import { PlayerRepositoriesImpl } from '../infrastructure/repositories/PlayerRepositoriesImpl';
+import { rankingRouter } from '../application/routes/RankingRoutes';
 
 const app = express();
 dotenv.config();
@@ -23,3 +24,4 @@ databaseConfiguration().then(() => {
 app.use(express.json());
 app.use('/api/players', playerRouter);
 app.use('/api/games', gameRouter);
+app.use('/api/ranking', rankingRouter);

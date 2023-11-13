@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GameRepository } from '../../core/repositories/GameRepositories';
 import Game from '../../core/domain/entities/Game';
 import {

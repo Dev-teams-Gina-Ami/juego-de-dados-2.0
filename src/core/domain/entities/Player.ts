@@ -1,5 +1,8 @@
+/* eslint-disable camelcase */
+import { calculateWinRate } from '../use-cases/CalculateWinRate';
+
 class Player {
-  private id: number;
+  private id_player: number;
   private name: string;
   private totalPlays: number;
   private totalWins: number;
@@ -10,8 +13,8 @@ class Player {
 
   constructor(
     name: string,
-    totalPlays: number = 86,
-    totalWins: number = 13,
+    totalPlays: number = 0,
+    totalWins: number = 0,
     winRate: number = 0,
     creationDate?: Date | undefined,
     id_?: number
@@ -26,11 +29,11 @@ class Player {
       Player.id_ = id_;
     }
 
-    this.id = ++Player.id_;
+    this.id_player = ++Player.id_;
   }
 
   getId(): number {
-    return this.id;
+    return this.id_player;
   }
 
   getName(): string {
@@ -46,7 +49,7 @@ class Player {
   }
 
   getWinRate(): number {
-    return this.winRate = (this.totalWins / this.totalPlays) * 100;
+    return (this.winRate = calculateWinRate(this.totalWins, this.totalPlays));
   }
 
   getCreationDate(): Date | undefined {
@@ -54,7 +57,7 @@ class Player {
   }
 
   setId(newId: number): void {
-    this.id = newId;
+    this.id_player = newId;
   }
 
   setName(newName: string): void {
@@ -67,10 +70,6 @@ class Player {
 
   setTotalWins(newTotalWins: number): void {
     this.totalWins = newTotalWins;
-  }
-
-  setWinRate(newWinRate: number): void {
-    this.winRate = newWinRate;
   }
 
   setCreationDate(newCreationDate: Date): void {
