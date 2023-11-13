@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import { Request, Response } from 'express';
 import { playMatch } from '../../core/domain/use-cases/Play';
-import Player from '../../core/domain/entities/Player';
 import { games, gametoJSON } from '../../core/domain/use-cases/Games';
 import { GameRepositoriesImpl } from '../../infrastructure/repositories/GameRepositoriesImpl';
 import { PlayerRepositoriesImpl } from '../../infrastructure/repositories/PlayerRepositoriesImpl';
@@ -21,7 +20,6 @@ export const doRoll = (req: Request, res: Response) => {
           game.setPlayerId(playerId);
           try {
             GameRepositories.add(game);
-            //player.getWinRate();
             PlayerRepositories.updatePlayer(player);
             res
               .status(201)
