@@ -1,83 +1,16 @@
-# Ejemplo básico de TS
+# API
 
----
+Para acceder a la api /api/{players, games o ranking}
 
-En este ejemplo básico hay:
+Request que acepta la API
+POST /players: crea un jugador/a.
+PUT /players/{id_player}: modifica el nom del jugador/a.
+GET /players: retorna el llistat de tots els jugadors/es del sistema amb el seu percentatge d’èxits.
 
-- ESLint
-- Prettier
-- ts-jest
-- nodemon
-- VSCode Debugging
-- Github Actions
-- Pequeño ejemplo de código funcional con import
+POST /games/{id_player}: un jugador/a específic realitza una tirada.
+DELETE /games/{id_player}: elimina les tirades del jugador/a.
+GET /games/{id_player}: retorna el llistat de jugades per un jugador/a.
 
-La configuración del debugger apunta a src/index.ts como archivo de inicio del proyecto.
-
-Comandos:
-
-Testing:
-
-```sh
-npm run test
-```
-
-Ejecuta los tests ignorando los que existan en dist/
-
-Prettier format:
-
-```sh
-npm run prettier-format
-```
-
-Ejecuta manualmente el prettier en el proyecto, recomiendo instalar la extensión prettier y que se autoejecute al guardar.
-
-Watcher:
-
-```sh
-npm run dev:watcher
-```
-
-Ejecuta nodemon usando src/index.ts como archivo inicial
-
-Dev Run:
-
-```sh
-npm run dev:run
-```
-
-Ejecuta el proyecto sin watcher
-
-Build:
-
-```sh
-npm run build
-```
-
-Transpila el proyecto en dist/
-
----
-
-## Debugger
-
-en el archivo .vscode/launch.json está la configuración del debugger.
-
-```json
-{
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Lanza debug",
-      "preLaunchTask": "tsc: build - tsconfig.json",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/src/index.ts",
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
-    }
-  ]
-}
-```
+GET /ranking: retorna un ranking de jugadors/es ordenat per percentatge d'èxits i el percentatge d’èxits mig del conjunt de tots els jugadors/es.
+GET /ranking/loser: retorna el jugador/a amb pitjor percentatge d’èxit.
+GET /ranking/winner: retorna el jugador/a amb millor percentatge d’èxit.
