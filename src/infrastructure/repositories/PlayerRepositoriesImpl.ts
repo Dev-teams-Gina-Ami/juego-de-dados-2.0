@@ -88,9 +88,10 @@ export class PlayerRepositoriesImpl implements PlayerRepository {
 
   async updatePlayer(player: Player) {
     if (PlayerRepositoriesImpl.PlayerModel != null) {
+      const playerData = this.getPlayerData(player);
       try {
-        await PlayerRepositoriesImpl.PlayerModel.update(player, {
-          where: { id_player: player.getId() }
+        await PlayerRepositoriesImpl.PlayerModel.update(playerData, { 
+          where: { id_player: playerData.id_player }
         });
       } catch (error) {
         console.error('Error updating player', error);
