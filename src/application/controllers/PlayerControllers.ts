@@ -44,21 +44,21 @@ export const updatePlayer = async (req: Request, res: Response) => {
 
     const playerToUpdate = await PlayerRepositories.findPlayerById(playerId);
 
-    if(players != null){
+    if (players != null) {
       found = players.find((player) => player.getName() == newName);
     }
 
-    if(found){
-      res.status(500).json("Name already exists");
-    }else{
+    if (found) {
+      res.status(500).json('Name already exists');
+    } else {
       if (playerToUpdate) {
         playerToUpdate.setName(newName);
         await PlayerRepositories.updatePlayer(playerToUpdate);
-        res.status(200).send("Player updated successfully");
+        res.status(200).send('Player updated successfully');
       } else {
         res.status(404).json({ error: 'Player not found' });
       }
-    } 
+    }
   } catch (error) {
     console.error('Error while updating player:', error);
     res.status(500).json({ error: 'Internal server error' });
