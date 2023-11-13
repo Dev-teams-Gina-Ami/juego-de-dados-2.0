@@ -33,14 +33,14 @@ export class GameRepositoriesImpl implements GameRepository {
   }
 
   getGameClass(gameData: any) {
-    let id = gameData.dataValues.id_game;
-    let playerId = gameData.dataValues.player_id;
-    let hasWon = gameData.dataValues.has_won;
-    let winnerNumber = gameData.dataValues.winnerNumber;
-    let dice1_value = gameData.dataValues.dice1_value;
-    let dice2_value = gameData.dataValues.dice2_value;
+    const id = gameData.dataValues.id_game;
+    const playerId = gameData.dataValues.player_id;
+    const hasWon = gameData.dataValues.has_won;
+    const winnerNumber = gameData.dataValues.winnerNumber;
+    const dice1_value = gameData.dataValues.dice1_value;
+    const dice2_value = gameData.dataValues.dice2_value;
 
-    let gameInstance = new Game(
+    const gameInstance = new Game(
       playerId,
       winnerNumber,
       dice1_value,

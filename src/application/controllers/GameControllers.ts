@@ -41,7 +41,7 @@ export const doRoll = (req: Request, res: Response) => {
 
 export const deleteRolls = (req: Request, res: Response) => {
   GameRepositories.findAll().then(() => {
-    let playerId: number = Number(req.params.id);
+    const playerId: number = Number(req.params.id);
     try {
       for (let i = 0; i < games.length; i++) {
         if (playerId == games[i].getPlayerId()) {
