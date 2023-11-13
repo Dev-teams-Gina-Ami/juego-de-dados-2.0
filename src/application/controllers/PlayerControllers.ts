@@ -30,7 +30,7 @@ export const updatePlayer = async (req: Request, res: Response) => {
       playerToUpdate.setName(newName);
       await PlayerRepositories.updatePlayer(playerToUpdate);
 
-      res.status(200).send("Player updated successfully");
+      res.status(200).send('Player updated successfully');
     } else {
       res.status(404).json({ error: 'Player not found' });
     }
@@ -38,8 +38,7 @@ export const updatePlayer = async (req: Request, res: Response) => {
     console.error('Error while updating player:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
-}
-
+};
 
 export const getAllPlayers = (_req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers()
@@ -64,12 +63,12 @@ export const deleteAllPlayers = (_req: Request, res: Response) => {
   PlayerRepositories.findAllPlayers().then(() => {
     try {
       for (let i = 0; i < players.length; i++) {
-        PlayerRepositories.deletePlayer(i + 1)
+        PlayerRepositories.deletePlayer(i + 1);
       }
       res.status(204).json('Players borrados');
     } catch (error) {
       res.status(500).json('Error al intentar borrar los players');
       console.log(error);
     }
-  })
+  });
 };

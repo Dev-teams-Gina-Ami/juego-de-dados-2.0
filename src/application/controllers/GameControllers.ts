@@ -12,25 +12,27 @@ const PlayerRepositories = new PlayerRepositoriesImpl();
 export const doRoll = (req: Request, res: Response) => {
   GameRepositories.findAll().then(() => {
     const playerId: number = Number(req.params.id);
-    PlayerRepositories.findPlayerById(playerId).then((player) => {
-      let game: Game; 
-      if(player){
-        game = playMatch(player);
-        game.setPlayerId(playerId);
-        try {
-          GameRepositories.add(game);
-          PlayerRepositories.updatePlayer(player);
-          res.status(201).json('Roll done');
-        } catch (error) {
-          console.log(error);
-          res.status(500).json('Unable to store de roll');
+    PlayerRepositories.findPlayerById(playerId)
+      .then((player) => {
+        let game: Game;
+        if (player) {
+          game = playMatch(player);
+          game.setPlayerId(playerId);
+          try {
+            GameRepositories.add(game);
+            PlayerRepositories.updatePlayer(player);
+            res.status(201).json('Roll done');
+          } catch (error) {
+            console.log(error);
+            res.status(500).json('Unable to store de roll');
+          }
         }
-      }
-    }).catch((error) => {
-      console.error('Error:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    });   
-  }); 
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+      });
+  });
 };
 
 export const deleteRolls = (req: Request, res: Response) => {
